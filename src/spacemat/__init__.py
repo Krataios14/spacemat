@@ -1,4 +1,4 @@
-"""spacemat — programmatic access and screening for spaceflight materials data.
+"""spacemat: programmatic access and screening for spaceflight materials data.
 
 Quick start::
 

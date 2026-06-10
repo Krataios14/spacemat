@@ -349,7 +349,7 @@
       "density_kg_m3": 910,
       "outgassing": { "tml": 2.5, "cvcm": 1.2, "wvr": 0.0, "source": "GSFC-style representative E595 result; fails both limits" },
       "flammability": "untested",
-      "notes": "Excellent cryogenic thermal-contact grease for lab use, but fails E595 badly — keep out of flight vacuum hardware.",
+      "notes": "Excellent cryogenic thermal-contact grease for lab use, but fails E595 badly; keep out of flight vacuum hardware.",
       "references": ["outgassing.nasa.gov"]
     },
     {

@@ -25,7 +25,7 @@ def _e595_line(m: Material) -> tuple[str, str]:
     if o.passes_e595(E595_TML_LIMIT, E595_CVCM_LIMIT):
         return "PASS", detail
     if o.cvcm <= E595_CVCM_LIMIT and o.wvr is not None and (o.tml - o.wvr) <= E595_TML_LIMIT:
-        return "CONDITIONAL", detail + " — TML exceeds limit but TML-WVR passes; water-dominated, bakeout typically accepted"
+        return "CONDITIONAL", detail + "; TML exceeds limit but TML-WVR passes (water-dominated, bakeout typically accepted)"
     return "FAIL", detail
 
 
@@ -40,7 +40,7 @@ def compliance_report(names: Sequence[str], T_service=None, project: str = "") -
     """Build a Markdown compliance report for the named materials.
 
     Covers ASTM E595 outgassing (TML <= 1.0%, CVCM <= 0.10%), flammability
-    flags, and — when ``T_service`` is given — mechanical/thermal properties
+    flags, and (when ``T_service`` is given) mechanical/thermal properties
     at the service temperature with data-coverage warnings.
     """
     t_k = as_kelvin(T_service) if T_service is not None else None
@@ -68,10 +68,10 @@ def compliance_report(names: Sequence[str], T_service=None, project: str = "") -
         lines.append(f"### {m.name}")
         e_status, e_detail = _e595_line(m)
         f_status, f_detail = _FLAM_TEXT[m.flammability]
-        lines.append(f"- Outgassing: **{e_status}** — {e_detail}")
+        lines.append(f"- Outgassing: **{e_status}**: {e_detail}")
         if m.outgassing and m.outgassing.source:
             lines.append(f"  - source: {m.outgassing.source}")
-        lines.append(f"- Flammability: **{f_status}** — {f_detail}")
+        lines.append(f"- Flammability: **{f_status}**: {f_detail}")
         if t_k is not None:
             props = []
             for key, label in (("yield_strength_mpa", "yield strength"),

@@ -33,7 +33,7 @@ class PropertyCurve:
     """A property sampled at discrete temperatures, linearly interpolated.
 
     Temperatures in kelvin, ascending. Queries outside the sampled range
-    return None rather than extrapolating — cryogenic data must not be
+    return None rather than extrapolating; cryogenic data must not be
     extrapolated silently.
     """
 

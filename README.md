@@ -1,63 +1,66 @@
 # spacemat
 
-Programmatic access and screening engine for spaceflight materials data.
+Python tools for spaceflight materials selection. Pulls together public
+outgassing data (ASTM E595), cryogenic property curves, and handbook
+mechanical properties into one schema you can actually query.
 
-NASA's outgassing database, NIST-style cryogenic property curves, and handbook
-design properties all exist — publicly — but in three different places and three
-different formats. `spacemat` unifies them into one queryable schema with an API
-that reads like the spec sheet:
+I built this because the data exists but lives in three different places with
+three different formats: the NASA outgassing database is a website, the NIST
+cryogenic property data is scattered across pages and papers, and strength
+data is in handbooks. If you want "passes outgassing AND holds 1000 MPa at
+90 K" you end up with browser tabs and a spreadsheet. Now it's one call:
 
 ```python
 from spacemat import screen, TML, CVCM, YIELD_STRENGTH, K
 
-# Materials that pass ASTM E595 outgassing screening and hold
-# >1000 MPa yield at 90 K (LOX-temperature cryo tank service):
 for r in screen(TML < 1.0, CVCM < 0.1, YIELD_STRENGTH > 1000, T_service=90*K):
-    print(r.material.name, r.material.property_at("yield_strength_mpa", 90))
-# Stainless Steel 301  1120.0
-# Inconel 718          1170.0
+    print(r.material.name)
+# Stainless Steel 301
+# Inconel 718
 ```
 
-## What's in the database (v0.1)
+## What's in the database
 
-- **Outgassing (ASTM E595)** — TML / CVCM / WVR for ~20 common spacecraft
-  materials, in the style of the NASA GSFC outgassing database
-  ([outgassing.nasa.gov](https://outgassing.nasa.gov)).
-- **Cryogenic property curves (20–295 K)** — yield/ultimate strength and thermal
-  conductivity vs. temperature for the alloys a stainless cryo-tank program
-  cares about: **304L**, **301 (cold rolled)**, **Al-Li 2195-T8**, **Inconel 718**
-  — plus PTFE, polyimide, and G-10 conductivities for thermal standoffs.
-  Curves are point data with linear interpolation and **no silent
-  extrapolation**: a query outside the measured range returns `None`.
-- **Flammability flags** — NASA-STD-6001-sense pass/fail/review flags.
+* ASTM E595 outgassing values (TML, CVCM, WVR) for common spacecraft
+  materials, in the style of the NASA GSFC database at outgassing.nasa.gov
+* Property curves over 4 to 295 K for the alloys cryo tank work cares about:
+  304L, 301 cold rolled, Al-Li 2195, Inconel 718, plus polymer and composite
+  conductivities for standoffs and isolators
+* Flammability flags in the NASA-STD-6001 sense (pass / fail / needs review)
 
-> ⚠️ All values are *representative public data*, not design allowables.
-> Outgassing depends on lot, cure, and bakeout — verify the exact product
-> against outgassing.nasa.gov before flight use.
+Curves are point data with linear interpolation. Queries outside the measured
+range return `None` instead of extrapolating, on purpose. If you ask for
+yield strength at 4 K and the data stops at 20 K, you should know that.
+
+Important: these are representative public values, not design allowables.
+Outgassing in particular depends on lot, cure, and bakeout. Verify the exact
+product against outgassing.nasa.gov before you fly anything.
 
 ## Screening
 
-Criteria are built from comparable property tokens:
+Criteria are built from property tokens that support comparison operators:
 
 ```python
 from spacemat import screen, TML, CVCM, DENSITY, THERMAL_CONDUCTIVITY, K
 
-screen(TML < 1.0, CVCM < 0.1)                      # outgassing only
-screen(DENSITY < 5000, category="metal")           # lightweight metals
-screen(THERMAL_CONDUCTIVITY < 0.5, T_service=20*K) # cryo thermal isolators
-screen(TML < 1.0, require_flammability_pass=True)  # crewed-vehicle screen
+screen(TML < 1.0, CVCM < 0.1)                       # outgassing only
+screen(DENSITY < 5000, category="metal")            # light metals
+screen(THERMAL_CONDUCTIVITY < 0.5, T_service=20*K)  # cryo isolators
+screen(TML < 1.0, require_flammability_pass=True)   # crewed vehicle screen
 ```
 
-Materials missing the data a criterion needs are excluded by default; pass
-`include_data_gaps=True` to see them with the gap flagged (`r.data_gaps`).
+Materials missing the data a criterion needs are dropped by default. Pass
+`include_data_gaps=True` to keep them, with the gap listed in `r.data_gaps`.
 
-## Ashby-style trade plots
+## Trade plots
 
 ```python
 from spacemat import ashby_plot, DENSITY, YIELD_STRENGTH, K
 ax = ashby_plot(DENSITY, YIELD_STRENGTH, T_service=90*K, logy=True)
-ax.figure.savefig("trade.png")   # requires: pip install spacemat[plot]
+ax.figure.savefig("trade.png")
 ```
+
+Plotting needs matplotlib: `pip install spacemat[plot]`
 
 ## Compliance reports
 
@@ -68,25 +71,25 @@ print(compliance_report(
     T_service=90*K, project="Demo cryo tank"))
 ```
 
-Produces a Markdown report with ASTM E595 pass/fail (including the
-water-dominated **CONDITIONAL** case where TML−WVR passes), flammability
-flags, and properties evaluated at the service temperature with data-coverage
-warnings.
+Generates a Markdown report with E595 pass/fail per material, flammability
+flags, and properties at the service temperature. Materials that exceed the
+TML limit only because of absorbed water (TML minus WVR under the limit) are
+marked CONDITIONAL, since those are usually accepted after bakeout.
 
-## Install & test
+## Install and test
 
 ```
 pip install -e .[dev]
 pytest
 ```
 
-## Data provenance
+## Data sources
 
 | Family | Source |
 |---|---|
 | Outgassing | NASA GSFC Outgassing Database (ASTM E595) |
-| Cryogenic curves | NIST Cryogenic Material Properties; NASA technical reports |
+| Cryogenic curves | NIST Cryogenic Material Properties, NASA technical reports |
 | Flammability | NASA-STD-6001 ratings where on record |
 
-MIT licensed. Contributions of additional vetted records welcome — each entry
-carries a `source` string; keep it that way.
+Every record carries a source string. If you contribute data, keep it that
+way. MIT licensed.
