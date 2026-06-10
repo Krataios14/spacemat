@@ -9,7 +9,7 @@ description = "Programmatic access and screening engine for spaceflight material
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }
-authors = [{ name = "Alexandros Marino", email = "alexandros.marino@gmail.com" }]
+authors = [{ name = "Alexandros Marinopoulos", email = "alexandros.marino@gmail.com" }]
 keywords = ["materials", "spaceflight", "outgassing", "cryogenic", "ASTM E595", "aerospace"]
 classifiers = [
     "Development Status :: 3 - Alpha",
