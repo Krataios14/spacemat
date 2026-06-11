@@ -8,7 +8,8 @@ Quick start::
         print(r.material.name)
 """
 
-from . import outgassing, thermal
+from . import export, outgassing, thermal
+from .compare import compare
 from .criteria import (CONTRACTION, CVCM, DENSITY, ELONGATION, THERMAL_CONDUCTIVITY, TML,
                        ULTIMATE_STRENGTH, WVR, YIELD_STRENGTH, Criterion, Property)
 from .db import get, load_all
@@ -23,7 +24,7 @@ __all__ = [
     "screen", "ScreenResult", "get", "load_all", "compliance_report", "outgassing",
     "Material", "Outgassing", "PropertyCurve", "Criterion", "Property",
     "TML", "CVCM", "WVR", "DENSITY", "YIELD_STRENGTH", "ULTIMATE_STRENGTH",
-    "THERMAL_CONDUCTIVITY", "CONTRACTION", "ELONGATION", "thermal",
+    "THERMAL_CONDUCTIVITY", "CONTRACTION", "ELONGATION", "thermal", "compare", "export",
     "K", "degC", "degF", "Quantity", "ashby_plot",
 ]
 
