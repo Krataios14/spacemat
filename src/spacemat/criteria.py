@@ -1,10 +1,4 @@
-"""Comparable property tokens so screens read like the spec sheet:
-
-    spacemat.screen(TML < 1.0, CVCM < 0.1, T_service=90*K)
-
-``TML < 1.0`` evaluates to a :class:`Criterion` capturing the field, the
-operator, and the threshold; ``screen`` applies it to each material.
-"""
+"""Property tokens with comparison operators: TML < 1.0 builds a Criterion."""
 
 from __future__ import annotations
 
@@ -25,7 +19,7 @@ class Criterion:
     getter: Callable[[Material, Optional[float]], Optional[float]]
 
     def evaluate(self, material: Material, t_kelvin: Optional[float] = None) -> Optional[bool]:
-        """True/False if the value is known; None if the material lacks data."""
+        # None means the material has no data for this, not a pass
         value = self.getter(material, t_kelvin)
         if value is None:
             return None
@@ -36,7 +30,7 @@ class Criterion:
 
 
 class Property:
-    """A screenable quantity; comparison operators produce Criterion objects."""
+    """Screenable quantity; comparing it returns a Criterion."""
 
     def __init__(self, label: str, getter: Callable[[Material, Optional[float]], Optional[float]]):
         self.label = label

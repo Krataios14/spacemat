@@ -1,8 +1,4 @@
-"""Flatten materials and outgassing entries to plain dicts and CSV.
-
-No pandas dependency; ``to_records`` output feeds ``pandas.DataFrame``
-directly if you have it.
-"""
+"""Flatten to dicts/CSV. to_records output feeds pandas.DataFrame directly."""
 
 from __future__ import annotations
 
@@ -18,9 +14,7 @@ from .units import as_kelvin
 
 def to_records(materials: Optional[Sequence[Material]] = None,
                T_service=None) -> list[dict]:
-    """One flat dict per material. Temperature-dependent curves are sampled
-    at ``T_service`` (columns suffixed with the temperature), otherwise the
-    curve range is reported so you know what exists."""
+    """One dict per material. Curves sample at T_service, or report their range."""
     t_k = as_kelvin(T_service) if T_service is not None else None
     records = []
     for m in (materials if materials is not None else load_all()):
@@ -45,7 +39,6 @@ def to_records(materials: Optional[Sequence[Material]] = None,
 
 
 def outgassing_to_records(entries: Iterable[OutgassingEntry]) -> list[dict]:
-    """Flatten NASA database entries (e.g. from ``outgassing.screen``)."""
     return [{
         "material": e.material,
         "data_ref": e.data_ref,
@@ -60,8 +53,7 @@ def outgassing_to_records(entries: Iterable[OutgassingEntry]) -> list[dict]:
 
 
 def to_csv(records: Sequence[dict], path: Optional[str] = None) -> Optional[str]:
-    """Write records to ``path``, or return CSV text when path is None.
-    Columns are the union across records, in first-seen order."""
+    """Write to path, or return CSV text. Columns are the union, first-seen order."""
     if not records:
         raise ValueError("nothing to export")
     fields: list[str] = []

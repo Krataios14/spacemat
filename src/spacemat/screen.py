@@ -1,4 +1,4 @@
-"""The screening engine: filter the database against engineering criteria."""
+"""Filter the curated materials against criteria."""
 
 from __future__ import annotations
 
@@ -32,18 +32,7 @@ def screen(*criteria: Criterion,
            require_flammability_pass: bool = False,
            require_temperature_coverage: bool = False,
            include_data_gaps: bool = False) -> list[ScreenResult]:
-    """Screen the database against criteria built from property tokens.
-
-    Example::
-
-        from spacemat import screen, TML, CVCM, K
-        passing = screen(TML < 1.0, CVCM < 0.1, T_service=90*K)
-
-    Criteria with temperature-dependent properties (e.g. ``YIELD_STRENGTH``)
-    are evaluated at ``T_service`` when given. A material missing the data a
-    criterion needs is excluded unless ``include_data_gaps=True``, in which
-    case it is returned with the gap noted (verdict ``None``).
-    """
+    # missing data excludes a material unless include_data_gaps=True
     t_k = as_kelvin(T_service) if T_service is not None else None
     results = []
     for m in load_all():

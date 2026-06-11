@@ -1,14 +1,8 @@
-"""Fetch the NASA GSFC outgassing database and rebuild the bundled snapshot.
+"""Rebuild data/nasa_outgassing.json.gz from the live NASA GSFC database.
 
-The database front end at outgassing.nasa.gov (hosted under etd.gsfc.nasa.gov)
-serves the full table through a paged JSON endpoint. This walks every page,
-normalizes the rows, and writes src/spacemat/data/nasa_outgassing.json.gz.
-
-NASA data is a U.S. Government work and not subject to copyright, so the
-snapshot is redistributable. Re-run this script to pick up new test entries.
-
-Usage:
-    python scripts/fetch_nasa_outgassing.py
+The outgassing.nasa.gov front end serves the full table through a paged JSON
+endpoint; walk it, normalize, gzip. NASA data is public domain. Re-run to
+pick up new test entries.
 """
 
 from __future__ import annotations
@@ -50,11 +44,10 @@ def fetch_page(page: int) -> dict:
 
 
 def parse_number(text: str):
-    """E595 columns are strings; blanks and unparseable values become None."""
+    # blanks and junk become None; a few entries lead with < or >
     text = text.strip()
     if not text:
         return None
-    # A handful of entries use a leading comparator, e.g. "<0.01".
     if text[0] in "<>":
         text = text[1:]
     try:

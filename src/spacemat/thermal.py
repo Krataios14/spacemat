@@ -1,14 +1,4 @@
-"""Cryogenic thermal calculations on top of the conductivity curves.
-
-The quantity that matters for a support strut or plumbing run between two
-temperature stages is not k at a single temperature but the conductivity
-integral over the span:
-
-    Q = (A / L) * integral(k dT, T_cold..T_hot)
-
-Curves are piecewise linear in T, so the integral here is exact, not a
-numerical approximation.
-"""
+"""Heat leak math: Q = (A/L) * integral(k dT). Integrals never extrapolate."""
 
 from __future__ import annotations
 
@@ -26,12 +16,7 @@ def _resolve(material: Union[Material, str]) -> Material:
 
 
 def conductivity_integral(material: Union[Material, str], T_cold, T_hot) -> float:
-    """Integral of k dT from T_cold to T_hot, in W/m.
-
-    Raises ValueError if the material has no conductivity curve or the span
-    falls outside the measured range; extrapolating conductivity across a
-    cryogenic span silently is how heat-leak budgets go wrong.
-    """
+    """Integral of k dT over the span, W/m. Raises if data doesn't cover it."""
     m = _resolve(material)
     curve = m.curves.get(CURVE)
     if curve is None:
@@ -70,11 +55,7 @@ def _simpson(f, t0: float, t1: float, n: int = 512) -> float:
 
 def heat_leak(material: Union[Material, str], area_m2: float, length_m: float,
               T_cold, T_hot) -> float:
-    """Steady-state conducted heat in watts through a prismatic member.
-
-    One-dimensional conduction only: no radiation, no MLI, no contact
-    resistance. Good for strut and tube budgets, which is what it is for.
-    """
+    """Conducted watts through a prismatic member. 1D conduction only."""
     if area_m2 <= 0 or length_m <= 0:
         raise ValueError("area and length must be positive")
     return (area_m2 / length_m) * conductivity_integral(material, T_cold, T_hot)
@@ -82,10 +63,7 @@ def heat_leak(material: Union[Material, str], area_m2: float, length_m: float,
 
 def contraction_mismatch(material_a: Union[Material, str],
                          material_b: Union[Material, str], T_cold) -> float:
-    """Differential thermal strain in percent between two materials cooled
-    from 293 K to T_cold. This is the number that cracks bonded joints and
-    seizes clearance fits; positive means material_a shrinks more.
-    """
+    """Differential strain in % after cooldown from 293 K; positive = a shrinks more."""
     t = as_kelvin(T_cold)
     strains = []
     for mat in (material_a, material_b):
@@ -104,8 +82,7 @@ def contraction_mismatch(material_a: Union[Material, str],
 
 def compare_heat_leak(names: list[str], area_m2: float, length_m: float,
                       T_cold, T_hot) -> list[tuple[str, float]]:
-    """Heat leak for several candidate materials, sorted best (lowest) first.
-    Materials without coverage of the span are skipped."""
+    """Heat leak per candidate, lowest first. Skips materials without coverage."""
     rows = []
     for n in names:
         try:

@@ -1,12 +1,4 @@
-"""Unified schema for spaceflight materials records.
-
-One :class:`Material` joins three data families that normally live in three
-different places:
-
-* outgassing per ASTM E595 (NASA GSFC outgassing database style: TML, CVCM, WVR)
-* temperature-dependent property curves (cryogenic range, NIST-style point data)
-* room-temperature design properties (MMPDS-style where publicly available)
-"""
+"""Material schema: E595 outgassing + temperature curves + RT properties in one record."""
 
 from __future__ import annotations
 
@@ -31,12 +23,7 @@ class Outgassing:
 
 @dataclass(frozen=True)
 class PropertyCurve:
-    """A property sampled at discrete temperatures, linearly interpolated.
-
-    Temperatures in kelvin, ascending. Queries outside the sampled range
-    return None rather than extrapolating; cryogenic data must not be
-    extrapolated silently.
-    """
+    """Point data, linear interpolation. Out of range gives None, never extrapolates."""
 
     name: str
     unit: str
@@ -71,8 +58,7 @@ class PropertyCurve:
 
 @dataclass(frozen=True)
 class NISTFitCurve:
-    """A property backed by a NIST published curve-fit equation, evaluated
-    verbatim. Same .at()/range interface as PropertyCurve."""
+    """NIST published curve fit, evaluated verbatim. Same interface as PropertyCurve."""
 
     name: str
     unit: str
@@ -99,8 +85,7 @@ class NISTFitCurve:
         else:
             raise ValueError(f"unknown fit form {self.form!r}")
         if self.transform == "expansion_e5_to_contraction_pct":
-            # NIST gives (L-L293)/L293 x 1e5, negative when cold; we report
-            # shrinkage as positive percent
+            # NIST expansion is (L-L293)/L293 x 1e5; flip sign, report % shrinkage
             y = -y / 1000.0
         return y
 
@@ -127,7 +112,7 @@ class Material:
         return curve.at(t_kelvin) if curve else None
 
     def covers_temperature(self, t_kelvin: float) -> bool:
-        """True if at least one mechanical-strength curve spans this temperature."""
+        # true if any strength curve spans this temperature
         for key in ("yield_strength_mpa", "ultimate_strength_mpa"):
             c = self.curves.get(key)
             if c and c.t_min <= t_kelvin <= c.t_max:

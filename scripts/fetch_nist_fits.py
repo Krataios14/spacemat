@@ -1,11 +1,7 @@
-"""Fetch NIST cryogenic property curve fits and write data/nist_fits.json.
+"""Rebuild data/nist_fits.json from the NIST cryogenic materials pages.
 
-NIST publishes each property as a curve-fit equation (log10 polynomial for
-conductivity/specific heat/modulus tables, quartic for linear expansion)
-with coefficients in an HTML table. We parse those coefficients verbatim,
-so evaluation in spacemat is exact NIST, not a re-fit.
-
-Usage: python scripts/fetch_nist_fits.py
+NIST publishes log10-polynomial fits (conductivity, specific heat, modulus)
+and quartic fits (linear expansion). We take the coefficients verbatim.
 """
 
 from __future__ import annotations
@@ -109,7 +105,7 @@ def _table_start(lines, i):
 
 
 def parse_tables(lines: list[str]) -> list[list[dict]]:
-    """Find every coefficient table; returns one list of column dicts each."""
+    """Every coefficient table on the page, as a list of column dicts."""
     tables = []
     i = 0
     while i < len(lines):
@@ -123,8 +119,7 @@ def parse_tables(lines: list[str]) -> list[list[dict]]:
         for letter in "bcdefghi":
             if i < len(lines) and lines[i] == letter:
                 coeffs[letter], i = _read_values(lines, i + 1, ncols)
-        # trailer rows: T low / f> constants and the data+equation ranges.
-        # labels get split across lines by the HTML, so scan token by token.
+        # trailer rows (T low, f>, ranges); labels split across lines, scan tokens
         t_low = below = None
         ranges = []
         pending = None
@@ -149,8 +144,7 @@ def parse_tables(lines: list[str]) -> list[list[dict]]:
         cols = []
         for c in range(ncols):
             col = {k: v[c] for k, v in coeffs.items() if c < len(v)}
-            # second group of ranges is the equation range; that's what NIST
-            # says the fit is valid over
+            # second range group is the equation range, the fit's valid span
             data_r = ranges[c] if c < len(ranges) else None
             eq_r = ranges[ncols + c] if ncols + c < len(ranges) else data_r
             cols.append({

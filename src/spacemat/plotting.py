@@ -1,4 +1,4 @@
-"""Ashby-style trade plots. Requires matplotlib (``pip install spacemat[plot]``)."""
+"""Ashby-style scatter plots. Needs the [plot] extra for matplotlib."""
 
 from __future__ import annotations
 
@@ -25,12 +25,7 @@ def ashby_plot(x: Property, y: Property,
                T_service=None,
                logx: bool = False, logy: bool = False,
                ax=None):
-    """Scatter every material with data for both axes, labeled and colored by category.
-
-    ``x``/``y`` are property tokens (e.g. ``DENSITY``, ``YIELD_STRENGTH``).
-    Temperature-dependent properties are evaluated at ``T_service``.
-    Returns the matplotlib Axes.
-    """
+    """Scatter materials on two property tokens; returns the Axes."""
     import matplotlib.pyplot as plt
 
     t_k = as_kelvin(T_service) if T_service is not None else None

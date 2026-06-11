@@ -1,8 +1,4 @@
-"""Minimal unit support so calls read like engineering: ``T_service=90*K``.
-
-Only the units spacemat actually consumes are defined. Quantities convert
-to kelvin internally; arithmetic beyond scalar multiplication is out of scope.
-"""
+"""Just enough units to write T_service=90*K. Everything converts to kelvin."""
 
 from __future__ import annotations
 
@@ -41,7 +37,7 @@ degF = Unit("degF")
 
 
 def as_kelvin(value) -> float:
-    """Accept a bare number (assumed K) or a Quantity and return kelvin."""
+    # bare numbers are taken as K
     if isinstance(value, Quantity):
         return value.to_kelvin()
     return float(value)

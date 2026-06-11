@@ -1,12 +1,4 @@
-"""spacemat: programmatic access and screening for spaceflight materials data.
-
-Quick start::
-
-    from spacemat import screen, TML, CVCM, K
-    passing = screen(TML < 1.0, CVCM < 0.1, T_service=90*K)
-    for r in passing:
-        print(r.material.name)
-"""
+"""Spaceflight materials data: screen(TML < 1.0, CVCM < 0.1, T_service=90*K)."""
 
 from . import export, outgassing, thermal
 from .compare import compare

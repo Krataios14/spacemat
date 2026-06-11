@@ -1,4 +1,4 @@
-"""Compliance report generator: ASTM E595 outgassing + NASA-STD-6001 flammability flags."""
+"""Markdown compliance reports: E595 pass/fail, flammability, props at temperature."""
 
 from __future__ import annotations
 
@@ -15,7 +15,6 @@ E595_CVCM_LIMIT = 0.10
 
 
 def _e595_line(m: Material) -> tuple[str, str]:
-    """Return (status, detail) for the outgassing assessment."""
     o = m.outgassing
     if o is None:
         return "NO DATA", "no E595 record; test per ASTM E595 or locate a database entry"
@@ -39,8 +38,7 @@ _FLAM_TEXT = {
 
 
 def _nasa_query(m: Material) -> str:
-    """Best-effort search string for the NASA database: strip parentheticals
-    and generic prefixes from the curated name."""
+    # curated names carry prefixes/parentheticals the NASA db doesn't use
     name = re.sub(r"\s*\(.*?\)", "", m.name)
     name = re.sub(r"^(Stainless Steel|Scotch-Weld|Hysol)\s+", "", name, flags=re.I)
     return name.strip()
@@ -54,12 +52,7 @@ def _nasa_crosscheck(m: Material) -> Optional[dict]:
 
 def compliance_report(names: Sequence[str], T_service=None, project: str = "",
                       crosscheck: bool = True) -> str:
-    """Build a Markdown compliance report for the named materials.
-
-    Covers ASTM E595 outgassing (TML <= 1.0%, CVCM <= 0.10%), flammability
-    flags, and (when ``T_service`` is given) mechanical/thermal properties
-    at the service temperature with data-coverage warnings.
-    """
+    """Markdown report for the named materials; crosscheck pulls NASA db stats."""
     t_k = as_kelvin(T_service) if T_service is not None else None
     lines = ["# Materials Compliance Report"]
     if project:

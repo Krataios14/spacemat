@@ -1,4 +1,4 @@
-"""Load the bundled dataset into Material objects."""
+"""Loads the bundled JSON data files into Material objects."""
 
 from __future__ import annotations
 
@@ -55,8 +55,7 @@ def _parse_fit(name: str, raw: dict) -> NISTFitCurve:
 
 @lru_cache(maxsize=1)
 def load_all() -> tuple[Material, ...]:
-    """Load every JSON data file, then overlay NIST fits on top. A NIST fit
-    replaces a hand-entered point curve of the same name."""
+    # NIST fits overlay last, so a fit beats a hand-entered curve of the same name
     mats: list[Material] = []
     fits: dict = {}
     data_dir = resources.files("spacemat.data")
@@ -82,7 +81,7 @@ def load_all() -> tuple[Material, ...]:
 
 
 def get(name: str) -> Material:
-    """Look up a material by exact or case-insensitive substring match."""
+    """Exact name first, then unique substring. Both case-insensitive."""
     mats = load_all()
     needle = name.lower()
     for m in mats:

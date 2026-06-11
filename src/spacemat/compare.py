@@ -1,4 +1,4 @@
-"""Side-by-side comparison tables for candidate materials."""
+"""Side-by-side Markdown tables for candidate materials."""
 
 from __future__ import annotations
 
@@ -21,8 +21,7 @@ _ROWS = (
 
 
 def compare(names: Sequence[Union[Material, str]], T_service=None) -> str:
-    """Markdown table of the properties that drive a typical trade,
-    evaluated at ``T_service`` where temperature-dependent."""
+    """Trade table; curve properties evaluate at T_service."""
     mats = [m if isinstance(m, Material) else get(m) for m in names]
     t_k = as_kelvin(T_service) if T_service is not None else None
 

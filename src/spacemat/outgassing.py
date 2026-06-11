@@ -1,18 +1,7 @@
-"""Query interface to the full NASA GSFC outgassing database.
+"""Query the bundled snapshot of the full NASA GSFC outgassing database.
 
-The package bundles a snapshot of the complete database (all test entries,
-not a curated subset) built by ``scripts/fetch_nasa_outgassing.py``. Each
-entry is one ASTM E595 test of one material sample: the same product often
-appears several times with different cure schedules or test campaigns, and
-that is exactly what you want to see when deciding whether a value is robust.
-
-Typical use::
-
-    from spacemat import outgassing
-
-    outgassing.search("RTV 566")              # every test of RTV 566
-    outgassing.screen(tml_max=1.0, cvcm_max=0.1, contains="epoxy")
-    outgassing.summarize("EC-2216")           # min/max/median across tests
+One entry per E595 test, so the same product shows up once per lot/cure.
+Snapshot built by scripts/fetch_nasa_outgassing.py.
 """
 
 from __future__ import annotations
@@ -53,7 +42,7 @@ class OutgassingEntry:
     year: Optional[int]
 
     def passes_e595(self, tml_max: float = 1.0, cvcm_max: float = 0.10) -> Optional[bool]:
-        """Pass/fail against screening limits; None if TML or CVCM is missing."""
+        # None when TML or CVCM is missing, not a pass
         if self.tml is None or self.cvcm is None:
             return None
         return self.tml <= tml_max and self.cvcm <= cvcm_max
@@ -68,7 +57,6 @@ def _snapshot() -> dict:
 
 @lru_cache(maxsize=1)
 def load() -> tuple[OutgassingEntry, ...]:
-    """All entries in the bundled snapshot."""
     return tuple(
         OutgassingEntry(
             material=e["material"],
@@ -86,13 +74,12 @@ def load() -> tuple[OutgassingEntry, ...]:
 
 
 def snapshot_info() -> dict:
-    """Provenance of the bundled snapshot (source, retrieval date, row count)."""
+    """Source, retrieval date, row count."""
     return dict(_snapshot()["meta"])
 
 
 def search(text: str, field: str = "material") -> list[OutgassingEntry]:
-    """Case-insensitive substring search. ``field`` is one of
-    material / application / manufacturer / data_ref."""
+    """Substring search on material/application/manufacturer/data_ref."""
     if field not in ("material", "application", "manufacturer", "data_ref"):
         raise ValueError(f"unknown search field {field!r}")
     needle = text.lower()
@@ -106,8 +93,7 @@ def screen(tml_max: Optional[float] = None,
            application: Optional[str] = None,
            manufacturer: Optional[str] = None,
            year_min: Optional[int] = None) -> list[OutgassingEntry]:
-    """Filter the full database. Numeric limits drop entries with missing values,
-    since "no data" must never read as "passes"."""
+    """Filter the database. Numeric limits drop entries with missing values."""
     results = []
     for e in load():
         if tml_max is not None and (e.tml is None or e.tml > tml_max):
@@ -129,12 +115,7 @@ def screen(tml_max: Optional[float] = None,
 
 
 def summarize(text: str) -> Optional[dict]:
-    """Spread of TML/CVCM across every test matching ``text``.
-
-    A material with one clean test and three dirty ones is a different risk
-    than four clean tests; this shows that at a glance. Returns None when
-    nothing matches.
-    """
+    """TML/CVCM spread across every test matching text; None if no matches."""
     entries = search(text)
     if not entries:
         return None

@@ -1,13 +1,4 @@
-"""Command line interface.
-
-    spacemat search "rtv 566"            search the NASA outgassing database
-    spacemat summary "scotchweld 2216"   TML/CVCM spread across all tests
-    spacemat screen --tml 1.0 --cvcm 0.1 --contains epoxy
-    spacemat materials --category metal --temp 90
-    spacemat show 304L --temp 90
-    spacemat report 304L "RTV 566" --temp 90 -o compliance.md
-    spacemat info                        snapshot provenance
-"""
+"""CLI. search/summary/screen hit the NASA db; materials/show/report the curated set."""
 
 from __future__ import annotations
 
