@@ -53,11 +53,21 @@ No data never reads as passes.
 
 ## Cryogenic property curves
 
-The curated layer has full property curves for 304L, 301 cold rolled,
-Al-Li 2195, and Inconel 718 (yield, ultimate, conductivity, contraction,
-4 to 295 K) plus PTFE, polyimide, and G-10 for standoffs. Curves
-interpolate linearly and refuse to extrapolate: out of range returns
-`None`, and the thermal tools raise.
+Thermal conductivity, specific heat, thermal contraction, and Young's
+modulus come from NIST's published cryogenic curve-fit equations, evaluated
+verbatim from their coefficients (no re-fitting, no hand-copied points).
+Covered: 304L, 316, 6061-T6, Inconel 718, Ti-6Al-4V, Invar 36, PTFE,
+polyimide, and G-10, most over 4 to 300 K. The fetch script that parses the
+NIST pages is in `scripts/fetch_nist_fits.py`.
+
+Strength is different: NIST publishes no strength fits, so yield and
+ultimate curves are representative values from the open literature, clearly
+sourced per entry. Those are for trades and budgets, not margins of safety.
+301 cold rolled and Al-Li 2195 carry representative thermal data too, since
+NIST does not cover them.
+
+Everything refuses to extrapolate. Out of range returns `None`, and the
+thermal tools raise.
 
 ```python
 from spacemat import screen, TML, CVCM, YIELD_STRENGTH, CONTRACTION, K
@@ -65,10 +75,6 @@ from spacemat import screen, TML, CVCM, YIELD_STRENGTH, CONTRACTION, K
 screen(TML < 1.0, CVCM < 0.1, YIELD_STRENGTH > 1000, T_service=90*K)
 screen(CONTRACTION < 0.3, T_service=77*K)
 ```
-
-These values are representative public data (NIST cryogenic properties,
-NASA reports), not design allowables. They are for trades and budgets, not
-margins of safety.
 
 ## Thermal tools
 
