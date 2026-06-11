@@ -8,6 +8,7 @@ Quick start::
         print(r.material.name)
 """
 
+from . import outgassing
 from .criteria import (CVCM, DENSITY, THERMAL_CONDUCTIVITY, TML, ULTIMATE_STRENGTH, WVR,
                        YIELD_STRENGTH, Criterion, Property)
 from .db import get, load_all
@@ -19,7 +20,7 @@ from .units import K, Quantity, degC, degF
 __version__ = "0.1.0"
 
 __all__ = [
-    "screen", "ScreenResult", "get", "load_all", "compliance_report",
+    "screen", "ScreenResult", "get", "load_all", "compliance_report", "outgassing",
     "Material", "Outgassing", "PropertyCurve", "Criterion", "Property",
     "TML", "CVCM", "WVR", "DENSITY", "YIELD_STRENGTH", "ULTIMATE_STRENGTH",
     "THERMAL_CONDUCTIVITY", "K", "degC", "degF", "Quantity", "ashby_plot",

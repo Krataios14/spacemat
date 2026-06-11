@@ -27,7 +27,7 @@ dev = ["pytest>=7", "matplotlib>=3.7"]
 where = ["src"]
 
 [tool.setuptools.package-data]
-spacemat = ["data/*.json"]
+spacemat = ["data/*.json", "data/*.json.gz"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
