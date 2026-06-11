@@ -60,10 +60,10 @@ def load_all() -> tuple[Material, ...]:
 def get(name: str) -> Material:
     """Look up a material by exact or case-insensitive substring match."""
     mats = load_all()
-    for m in mats:
-        if m.name == name:
-            return m
     needle = name.lower()
+    for m in mats:
+        if m.name.lower() == needle:
+            return m
     hits = [m for m in mats if needle in m.name.lower()]
     if len(hits) == 1:
         return hits[0]

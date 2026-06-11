@@ -14,6 +14,7 @@ def test_database_loads_and_is_nontrivial():
 
 def test_get_exact_and_substring():
     assert get("Inconel 718").category == "metal"
+    assert get("inconel 718").category == "metal"  # exact match ignores case
     assert get("304L").name == "Stainless Steel 304L"
     with pytest.raises(KeyError):
         get("unobtainium")
