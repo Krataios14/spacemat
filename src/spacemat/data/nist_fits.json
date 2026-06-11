@@ -1,0 +1,727 @@
+{
+ "_meta": {
+  "description": "Verbatim NIST cryogenic property curve-fit coefficients.",
+  "source": "https://trc.nist.gov/cryogenics/materials/materialproperties.htm"
+ },
+ "fits": {
+  "Stainless Steel 304L": {
+   "thermal_conductivity_w_mk": {
+    "coeffs": {
+     "a": -1.4087,
+     "b": 1.3982,
+     "c": 0.2543,
+     "d": -0.626,
+     "e": 0.2334,
+     "f": 0.4256,
+     "g": -0.4658,
+     "h": 0.165,
+     "i": -0.0199
+    },
+    "form": "log10poly",
+    "t_min": 1.0,
+    "t_max": 300.0,
+    "data_range": [
+     4.0,
+     300.0
+    ],
+    "t_low": null,
+    "below_value": null,
+    "unit": "W/(m*K)",
+    "source": "NIST cryogenic material properties curve fit, https://trc.nist.gov/cryogenics/materials/304LStainless/304LStainless_rev.htm"
+   },
+   "specific_heat_lowT_j_kgk": {
+    "coeffs": {
+     "a": -351.51,
+     "b": 3123.695,
+     "c": -12017.28,
+     "d": 26143.99,
+     "e": -35176.33,
+     "f": 29981.75,
+     "g": -15812.78,
+     "h": 4719.64,
+     "i": -610.515
+    },
+    "form": "log10poly",
+    "t_min": 4.0,
+    "t_max": 23.0,
+    "data_range": [
+     4.0,
+     20.0
+    ],
+    "t_low": null,
+    "below_value": null,
+    "unit": "J/(kg*K)",
+    "source": "NIST cryogenic material properties curve fit, https://trc.nist.gov/cryogenics/materials/304LStainless/304LStainless_rev.htm"
+   },
+   "thermal_contraction_pct": {
+    "coeffs": {
+     "a": -295.54,
+     "b": -0.39811,
+     "c": 0.0092683,
+     "d": -2.0261e-05,
+     "e": 1.7127e-08
+    },
+    "form": "quartic",
+    "t_min": 4.0,
+    "t_max": 300.0,
+    "data_range": [
+     4.0,
+     300.0
+    ],
+    "t_low": 23.0,
+    "below_value": -300.04,
+    "unit": "% (shrinkage from 293 K)",
+    "source": "NIST cryogenic material properties curve fit, https://trc.nist.gov/cryogenics/materials/304LStainless/304LStainless_rev.htm",
+    "transform": "expansion_e5_to_contraction_pct"
+   },
+   "specific_heat_j_kgk": {
+    "coeffs": {
+     "a": 22.0061,
+     "b": -127.5528,
+     "c": 303.647,
+     "d": -381.0098,
+     "e": 274.0328,
+     "f": -112.9212,
+     "g": 24.7593,
+     "h": -2.239153,
+     "i": 0.0
+    },
+    "form": "log10poly",
+    "t_min": 4.0,
+    "t_max": 300.0,
+    "data_range": [
+     4.0,
+     300.0
+    ],
+    "t_low": null,
+    "below_value": null,
+    "unit": "J/(kg*K)",
+    "source": "NIST cryogenic material properties curve fit, https://trc.nist.gov/cryogenics/materials/304Stainless/304Stainless_rev.htm (304 fit, applied to 304L)"
+   },
+   "youngs_modulus_gpa": {
+    "coeffs": {
+     "a": 210.0593,
+     "b": 0.1534883,
+     "c": -0.00161739,
+     "d": 5.11706e-06,
+     "e": -6.1546e-09
+    },
+    "form": "quartic",
+    "t_min": 57.0,
+    "t_max": 293.0,
+    "data_range": [
+     48.0,
+     293.0
+    ],
+    "t_low": null,
+    "below_value": null,
+    "unit": "GPa",
+    "source": "NIST cryogenic material properties curve fit, https://trc.nist.gov/cryogenics/materials/304Stainless/304Stainless_rev.htm (304 fit, applied to 304L)"
+   }
+  },
+  "Stainless Steel 316": {
+   "thermal_conductivity_w_mk": {
+    "coeffs": {
+     "a": -1.4087,
+     "b": 1.3982,
+     "c": 0.2543,
+     "d": -0.626,
+     "e": 0.2334,
+     "f": 0.4256,
+     "g": -0.4658,
+     "h": 0.165,
+     "i": -0.0199
+    },
+    "form": "log10poly",
+    "t_min": 1.0,
+    "t_max": 300.0,
+    "data_range": [
+     4.0,
+     300.0
+    ],
+    "t_low": null,
+    "below_value": null,
+    "unit": "W/(m*K)",
+    "source": "NIST cryogenic material properties curve fit, https://trc.nist.gov/cryogenics/materials/316Stainless/316Stainless_rev.htm"
+   },
+   "specific_heat_j_kgk": {
+    "coeffs": {
+     "a": -1879.464,
+     "b": 3643.198,
+     "c": 76.70125,
+     "d": -6176.028,
+     "e": 7437.6247,
+     "f": -4305.7217,
+     "g": 1382.4627,
+     "h": -237.22704,
+     "i": 17.05262
+    },
+    "form": "log10poly",
+    "t_min": 50.0,
+    "t_max": 300.0,
+    "data_range": [
+     4.0,
+     300.0
+    ],
+    "t_low": null,
+    "below_value": null,
+    "unit": "J/(kg*K)",
+    "source": "NIST cryogenic material properties curve fit, https://trc.nist.gov/cryogenics/materials/316Stainless/316Stainless_rev.htm"
+   },
+   "youngs_modulus_gpa": {
+    "coeffs": {
+     "a": 207.9488,
+     "b": 0.07394241,
+     "c": -0.00096272,
+     "d": 2.84556e-06,
+     "e": -3.2408e-09
+    },
+    "form": "quartic",
+    "t_min": 50.0,
+    "t_max": 294.0,
+    "data_range": [
+     48.0,
+     294.0
+    ],
+    "t_low": null,
+    "below_value": null,
+    "unit": "GPa",
+    "source": "NIST cryogenic material properties curve fit, https://trc.nist.gov/cryogenics/materials/316Stainless/316Stainless_rev.htm"
+   },
+   "thermal_contraction_pct": {
+    "coeffs": {
+     "a": -295.54,
+     "b": -0.39811,
+     "c": 0.0092683,
+     "d": -2.0261e-05,
+     "e": 1.7127e-08
+    },
+    "form": "quartic",
+    "t_min": 4.0,
+    "t_max": 300.0,
+    "data_range": [
+     4.0,
+     300.0
+    ],
+    "t_low": 23.0,
+    "below_value": -300.04,
+    "unit": "% (shrinkage from 293 K)",
+    "source": "NIST cryogenic material properties curve fit, https://trc.nist.gov/cryogenics/materials/316Stainless/316Stainless_rev.htm",
+    "transform": "expansion_e5_to_contraction_pct"
+   }
+  },
+  "Aluminum 6061-T6": {
+   "thermal_conductivity_w_mk": {
+    "coeffs": {
+     "a": 0.07918,
+     "b": 1.0957,
+     "c": -0.07277,
+     "d": 0.08084,
+     "e": 0.02803,
+     "f": -0.09464,
+     "g": 0.04179,
+     "h": -0.00571,
+     "i": 0.0
+    },
+    "form": "log10poly",
+    "t_min": 1.0,
+    "t_max": 300.0,
+    "data_range": [
+     4.0,
+     300.0
+    ],
+    "t_low": null,
+    "below_value": null,
+    "unit": "W/(m*K)",
+    "source": "NIST cryogenic material properties curve fit, https://trc.nist.gov/cryogenics/materials/6061%20Aluminum/6061_T6Aluminum_rev.htm"
+   },
+   "specific_heat_j_kgk": {
+    "coeffs": {
+     "a": 46.6467,
+     "b": -314.292,
+     "c": 866.662,
+     "d": -1298.3,
+     "e": 1162.27,
+     "f": -637.795,
+     "g": 210.351,
+     "h": -38.3094,
+     "i": 2.96344
+    },
+    "form": "log10poly",
+    "t_min": 4.0,
+    "t_max": 300.0,
+    "data_range": [
+     4.0,
+     300.0
+    ],
+    "t_low": null,
+    "below_value": null,
+    "unit": "J/(kg*K)",
+    "source": "NIST cryogenic material properties curve fit, https://trc.nist.gov/cryogenics/materials/6061%20Aluminum/6061_T6Aluminum_rev.htm"
+   },
+   "youngs_modulus_gpa": {
+    "coeffs": {
+     "a": 77.71221,
+     "b": 0.01030646,
+     "c": -0.00029241,
+     "d": 8.9936e-07,
+     "e": -1.0709e-09
+    },
+    "form": "quartic",
+    "t_min": 2.0,
+    "t_max": 295.0,
+    "data_range": [
+     0.0,
+     299.0
+    ],
+    "t_low": null,
+    "below_value": null,
+    "unit": "GPa",
+    "source": "NIST cryogenic material properties curve fit, https://trc.nist.gov/cryogenics/materials/6061%20Aluminum/6061_T6Aluminum_rev.htm"
+   },
+   "thermal_contraction_pct": {
+    "coeffs": {
+     "a": -412.77,
+     "b": -0.30389,
+     "c": 0.0087696,
+     "d": -9.9821e-06,
+     "e": 0.0
+    },
+    "form": "quartic",
+    "t_min": 4.0,
+    "t_max": 300.0,
+    "data_range": [
+     4.0,
+     300.0
+    ],
+    "t_low": 18.0,
+    "below_value": -415.45,
+    "unit": "% (shrinkage from 293 K)",
+    "source": "NIST cryogenic material properties curve fit, https://trc.nist.gov/cryogenics/materials/6061%20Aluminum/6061_T6Aluminum_rev.htm",
+    "transform": "expansion_e5_to_contraction_pct"
+   }
+  },
+  "Inconel 718": {
+   "thermal_conductivity_w_mk": {
+    "coeffs": {
+     "a": -8.28921,
+     "b": 39.447,
+     "c": -83.4353,
+     "d": 98.169,
+     "e": -67.2088,
+     "f": 26.7082,
+     "g": -5.7205,
+     "h": 0.51115,
+     "i": 0.0
+    },
+    "form": "log10poly",
+    "t_min": 4.0,
+    "t_max": 300.0,
+    "data_range": [
+     6.0,
+     275.0
+    ],
+    "t_low": null,
+    "below_value": null,
+    "unit": "W/(m*K)",
+    "source": "NIST cryogenic material properties curve fit, https://trc.nist.gov/cryogenics/materials/Iconel%20718/Inconel718_rev.htm"
+   },
+   "thermal_contraction_pct": {
+    "coeffs": {
+     "a": -236.8,
+     "b": -0.212,
+     "c": 0.005497,
+     "d": -6.882e-06,
+     "e": 0.0
+    },
+    "form": "quartic",
+    "t_min": 4.0,
+    "t_max": 300.0,
+    "data_range": [
+     4.0,
+     300.0
+    ],
+    "t_low": 20.0,
+    "below_value": -238.87,
+    "unit": "% (shrinkage from 293 K)",
+    "source": "NIST cryogenic material properties curve fit, https://trc.nist.gov/cryogenics/materials/Iconel%20718/Inconel718_rev.htm",
+    "transform": "expansion_e5_to_contraction_pct"
+   }
+  },
+  "G-10/FR-4 glass epoxy": {
+   "thermal_conductivity_w_mk": {
+    "coeffs": {
+     "a": -4.1236,
+     "b": 13.788,
+     "c": -26.068,
+     "d": 26.272,
+     "e": -14.663,
+     "f": 4.4954,
+     "g": -0.6905,
+     "h": 0.0397,
+     "i": 0.0
+    },
+    "form": "log10poly",
+    "t_min": 10.0,
+    "t_max": 300.0,
+    "data_range": [
+     4.0,
+     300.0
+    ],
+    "t_low": null,
+    "below_value": null,
+    "unit": "W/(m*K)",
+    "source": "NIST cryogenic material properties curve fit, https://trc.nist.gov/cryogenics/materials/G-10%20CR%20Fiberglass%20Epoxy/G10CRFiberglassEpoxy_rev.htm"
+   },
+   "thermal_conductivity_warp_w_mk": {
+    "coeffs": {
+     "a": -2.64827,
+     "b": 8.80228,
+     "c": -24.8998,
+     "d": 41.1625,
+     "e": -39.8754,
+     "f": 23.1778,
+     "g": -7.95635,
+     "h": 1.48806,
+     "i": -0.11701
+    },
+    "form": "log10poly",
+    "t_min": 12.0,
+    "t_max": 300.0,
+    "data_range": [
+     4.0,
+     300.0
+    ],
+    "t_low": null,
+    "below_value": null,
+    "unit": "W/(m*K)",
+    "source": "NIST cryogenic material properties curve fit, https://trc.nist.gov/cryogenics/materials/G-10%20CR%20Fiberglass%20Epoxy/G10CRFiberglassEpoxy_rev.htm"
+   },
+   "specific_heat_j_kgk": {
+    "coeffs": {
+     "a": -2.4083,
+     "b": 7.6006,
+     "c": -8.2982,
+     "d": 7.3301,
+     "e": -4.2386,
+     "f": 1.4294,
+     "g": -0.24396,
+     "h": 0.015236,
+     "i": 0.0
+    },
+    "form": "log10poly",
+    "t_min": 4.0,
+    "t_max": 300.0,
+    "data_range": [
+     4.0,
+     300.0
+    ],
+    "t_low": null,
+    "below_value": null,
+    "unit": "J/(kg*K)",
+    "source": "NIST cryogenic material properties curve fit, https://trc.nist.gov/cryogenics/materials/G-10%20CR%20Fiberglass%20Epoxy/G10CRFiberglassEpoxy_rev.htm"
+   },
+   "thermal_contraction_pct": {
+    "coeffs": {
+     "a": -719.8,
+     "b": 0.4455,
+     "c": 0.007505,
+     "d": -2.219e-06,
+     "e": 0.0
+    },
+    "form": "quartic",
+    "t_min": 10.0,
+    "t_max": 300.0,
+    "data_range": [
+     4.0,
+     300.0
+    ],
+    "t_low": null,
+    "below_value": null,
+    "unit": "% (shrinkage from 293 K)",
+    "source": "NIST cryogenic material properties curve fit, https://trc.nist.gov/cryogenics/materials/G-10%20CR%20Fiberglass%20Epoxy/G10CRFiberglassEpoxy_rev.htm",
+    "transform": "expansion_e5_to_contraction_pct"
+   },
+   "thermal_contraction_warp_pct": {
+    "coeffs": {
+     "a": -246.9,
+     "b": 0.2064,
+     "c": 0.003072,
+     "d": -3.226e-06,
+     "e": 0.0
+    },
+    "form": "quartic",
+    "t_min": 12.0,
+    "t_max": 300.0,
+    "data_range": [
+     4.0,
+     300.0
+    ],
+    "t_low": null,
+    "below_value": null,
+    "unit": "% (shrinkage from 293 K)",
+    "source": "NIST cryogenic material properties curve fit, https://trc.nist.gov/cryogenics/materials/G-10%20CR%20Fiberglass%20Epoxy/G10CRFiberglassEpoxy_rev.htm",
+    "transform": "expansion_e5_to_contraction_pct"
+   }
+  },
+  "PTFE (Teflon)": {
+   "thermal_conductivity_w_mk": {
+    "coeffs": {
+     "a": 2.738,
+     "b": -30.677,
+     "c": 89.43,
+     "d": -136.99,
+     "e": 124.69,
+     "f": -69.556,
+     "g": 23.32,
+     "h": -4.3135,
+     "i": 0.33829
+    },
+    "form": "log10poly",
+    "t_min": 4.0,
+    "t_max": 300.0,
+    "data_range": [
+     4.0,
+     300.0
+    ],
+    "t_low": null,
+    "below_value": null,
+    "unit": "W/(m*K)",
+    "source": "NIST cryogenic material properties curve fit, https://trc.nist.gov/cryogenics/materials/Teflon/Teflon_rev.htm"
+   },
+   "specific_heat_j_kgk": {
+    "coeffs": {
+     "a": 31.88256,
+     "b": -166.51949,
+     "c": 352.01879,
+     "d": -393.44232,
+     "e": 259.98072,
+     "f": -104.61429,
+     "g": 24.99276,
+     "h": -3.20792,
+     "i": 0.16503
+    },
+    "form": "log10poly",
+    "t_min": 4.0,
+    "t_max": 300.0,
+    "data_range": [
+     4.0,
+     300.0
+    ],
+    "t_low": null,
+    "below_value": null,
+    "unit": "J/(kg*K)",
+    "source": "NIST cryogenic material properties curve fit, https://trc.nist.gov/cryogenics/materials/Teflon/Teflon_rev.htm"
+   },
+   "thermal_contraction_pct": {
+    "coeffs": {
+     "a": -2125.0,
+     "b": -0.8201,
+     "c": 0.06161,
+     "d": -0.0003171,
+     "e": 6.85e-07
+    },
+    "form": "quartic",
+    "t_min": 4.0,
+    "t_max": 300.0,
+    "data_range": [
+     4.0,
+     300.0
+    ],
+    "t_low": null,
+    "below_value": null,
+    "unit": "% (shrinkage from 293 K)",
+    "source": "NIST cryogenic material properties curve fit, https://trc.nist.gov/cryogenics/materials/Teflon/Teflon_rev.htm",
+    "transform": "expansion_e5_to_contraction_pct"
+   }
+  },
+  "Kapton H film": {
+   "thermal_conductivity_w_mk": {
+    "coeffs": {
+     "a": 5.73101,
+     "b": -39.5199,
+     "c": 79.9313,
+     "d": -83.8572,
+     "e": 50.9157,
+     "f": -17.9835,
+     "g": 3.42413,
+     "h": -0.27133,
+     "i": 0.0
+    },
+    "form": "log10poly",
+    "t_min": 4.0,
+    "t_max": 300.0,
+    "data_range": [
+     4.0,
+     300.0
+    ],
+    "t_low": null,
+    "below_value": null,
+    "unit": "W/(m*K)",
+    "source": "NIST cryogenic material properties curve fit, https://trc.nist.gov/cryogenics/materials/Polyimide%20Kapton/PolyimideKapton_rev.htm"
+   },
+   "specific_heat_j_kgk": {
+    "coeffs": {
+     "a": -1.3684,
+     "b": 0.65892,
+     "c": 2.8719,
+     "d": 0.42651,
+     "e": -3.0088,
+     "f": 1.9558,
+     "g": -0.51998,
+     "h": 0.051574,
+     "i": 0.0
+    },
+    "form": "log10poly",
+    "t_min": 4.0,
+    "t_max": 300.0,
+    "data_range": [
+     4.0,
+     300.0
+    ],
+    "t_low": null,
+    "below_value": null,
+    "unit": "J/(kg*K)",
+    "source": "NIST cryogenic material properties curve fit, https://trc.nist.gov/cryogenics/materials/Polyimide%20Kapton/PolyimideKapton_rev.htm"
+   }
+  },
+  "Ti-6Al-4V": {
+   "thermal_conductivity_w_mk": {
+    "coeffs": {
+     "a": -5107.8774,
+     "b": 19240.422,
+     "c": -30789.064,
+     "d": 27134.756,
+     "e": -14226.379,
+     "f": 4438.2154,
+     "g": -763.07767,
+     "h": 55.796592,
+     "i": 0.0
+    },
+    "form": "log10poly",
+    "t_min": 20.0,
+    "t_max": 300.0,
+    "data_range": [
+     23.0,
+     300.0
+    ],
+    "t_low": null,
+    "below_value": null,
+    "unit": "W/(m*K)",
+    "source": "NIST cryogenic material properties curve fit, https://trc.nist.gov/cryogenics/materials/Ti6Al4V/Ti6Al4V_rev.htm"
+   },
+   "thermal_contraction_pct": {
+    "coeffs": {
+     "a": -171.1,
+     "b": -0.214,
+     "c": 0.004807,
+     "d": -7.111e-06,
+     "e": 0.0
+    },
+    "form": "quartic",
+    "t_min": 4.0,
+    "t_max": 300.0,
+    "data_range": [
+     4.0,
+     300.0
+    ],
+    "t_low": 24.0,
+    "below_value": -173.61,
+    "unit": "% (shrinkage from 293 K)",
+    "source": "NIST cryogenic material properties curve fit, https://trc.nist.gov/cryogenics/materials/Ti6Al4V/Ti6Al4V_rev.htm",
+    "transform": "expansion_e5_to_contraction_pct"
+   }
+  },
+  "Invar 36": {
+   "thermal_conductivity_w_mk": {
+    "coeffs": {
+     "a": -2.7064,
+     "b": 8.5191,
+     "c": -15.923,
+     "d": 18.276,
+     "e": -11.9116,
+     "f": 4.40318,
+     "g": -0.86018,
+     "h": 0.068508,
+     "i": 0.0
+    },
+    "form": "log10poly",
+    "t_min": 4.0,
+    "t_max": 300.0,
+    "data_range": [
+     4.0,
+     300.0
+    ],
+    "t_low": null,
+    "below_value": null,
+    "unit": "W/(m*K)",
+    "source": "NIST cryogenic material properties curve fit, https://trc.nist.gov/cryogenics/materials/Invar%28Fe-36Ni%29/Invar_rev.htm"
+   },
+   "specific_heat_j_kgk": {
+    "coeffs": {
+     "a": 28.08,
+     "b": -228.23,
+     "c": 777.587,
+     "d": -1448.423,
+     "e": 1596.567,
+     "f": -1040.294,
+     "g": 371.2125,
+     "h": -56.004,
+     "i": 0.0
+    },
+    "form": "log10poly",
+    "t_min": 4.0,
+    "t_max": 27.0,
+    "data_range": [
+     4.0,
+     20.0
+    ],
+    "t_low": null,
+    "below_value": null,
+    "unit": "J/(kg*K)",
+    "source": "NIST cryogenic material properties curve fit, https://trc.nist.gov/cryogenics/materials/Invar%28Fe-36Ni%29/Invar_rev.htm"
+   },
+   "youngs_modulus_gpa": {
+    "coeffs": {
+     "a": 141.565,
+     "b": 0.0254435,
+     "c": -0.00100842,
+     "d": 6.72797e-06,
+     "e": -1.0823e-08
+    },
+    "form": "quartic",
+    "t_min": 3.0,
+    "t_max": 298.0,
+    "data_range": [
+     1.0,
+     298.0
+    ],
+    "t_low": null,
+    "below_value": null,
+    "unit": "GPa",
+    "source": "NIST cryogenic material properties curve fit, https://trc.nist.gov/cryogenics/materials/Invar%28Fe-36Ni%29/Invar_rev.htm"
+   },
+   "thermal_contraction_pct": {
+    "coeffs": {
+     "a": -52.65,
+     "b": 0.1009,
+     "c": 0.0008395,
+     "d": -1.973e-06,
+     "e": 8.794e-11
+    },
+    "form": "quartic",
+    "t_min": 4.0,
+    "t_max": 300.0,
+    "data_range": [
+     4.0,
+     300.0
+    ],
+    "t_low": 80.0,
+    "below_value": -40.0,
+    "unit": "% (shrinkage from 293 K)",
+    "source": "NIST cryogenic material properties curve fit, https://trc.nist.gov/cryogenics/materials/Invar%28Fe-36Ni%29/Invar_rev.htm",
+    "transform": "expansion_e5_to_contraction_pct"
+   }
+  }
+ }
+}

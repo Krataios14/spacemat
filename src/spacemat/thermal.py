@@ -43,12 +43,13 @@ def conductivity_integral(material: Union[Material, str], T_cold, T_hot) -> floa
         raise ValueError(
             f"{m.name}: requested span {t0:g}-{t1:g} K outside measured "
             f"range {curve.t_min:g}-{curve.t_max:g} K; refusing to extrapolate")
-    return _piecewise_linear_integral(curve, t0, t1)
+    if isinstance(curve, PropertyCurve):
+        return _piecewise_linear_integral(curve, t0, t1)
+    return _simpson(curve.at, t0, t1)
 
 
 def _piecewise_linear_integral(curve: PropertyCurve, t0: float, t1: float) -> float:
-    # Trapezoid over the curve nodes inside [t0, t1] plus interpolated endpoints.
-    # Exact because the curve is linear between nodes.
+    # trapezoid over the nodes inside the span; exact since segments are linear
     points = [(t0, curve.at(t0))]
     points += [(t, v) for t, v in zip(curve.temps_k, curve.values) if t0 < t < t1]
     points.append((t1, curve.at(t1)))
@@ -56,6 +57,15 @@ def _piecewise_linear_integral(curve: PropertyCurve, t0: float, t1: float) -> fl
     for (ta, va), (tb, vb) in zip(points, points[1:]):
         total += 0.5 * (va + vb) * (tb - ta)
     return total
+
+
+def _simpson(f, t0: float, t1: float, n: int = 512) -> float:
+    # for NIST fit curves; n=512 puts the error way below the fit's own 1-5%
+    h = (t1 - t0) / n
+    total = f(t0) + f(t1)
+    for i in range(1, n):
+        total += f(t0 + i * h) * (4 if i % 2 else 2)
+    return total * h / 3
 
 
 def heat_leak(material: Union[Material, str], area_m2: float, length_m: float,

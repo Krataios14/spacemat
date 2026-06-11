@@ -27,23 +27,11 @@
           "values": [1700, 1520, 1450, 900, 560],
           "source": "austenitic strain-hardening at cryogenic temperature; representative"
         },
-        "thermal_conductivity_w_mk": {
-          "unit": "W/(m*K)",
-          "temps_k": [4, 20, 50, 77, 90, 150, 200, 295],
-          "values": [0.27, 2.0, 5.5, 7.9, 8.6, 11.0, 12.5, 14.7],
-          "source": "NIST cryogenic material properties, 304 stainless"
-        },
         "elongation_pct": {
           "unit": "%",
           "temps_k": [20, 77, 295],
           "values": [35, 40, 55],
           "source": "representative"
-        },
-        "thermal_contraction_pct": {
-          "unit": "% (shrinkage from 293 K)",
-          "temps_k": [20, 77, 90, 195, 293],
-          "values": [0.296, 0.281, 0.270, 0.165, 0.0],
-          "source": "NIST cryogenic material properties, 304 stainless integrated expansion"
         }
       },
       "notes": "Workhorse cryo-tank alloy; retains toughness to 4 K. Annealed values; cold work raises strength substantially.",
@@ -130,6 +118,92 @@
       "references": ["NASA SLWT/SLS technical literature"]
     },
     {
+      "name": "Stainless Steel 316",
+      "category": "metal",
+      "subcategory": "austenitic stainless",
+      "condition": "annealed",
+      "density_kg_m3": 7980,
+      "outgassing": { "tml": 0.0, "cvcm": 0.0, "wvr": 0.0, "source": "metal; non-outgassing per E595 screening practice" },
+      "yield_strength_rt_mpa": 240,
+      "ultimate_strength_rt_mpa": 550,
+      "modulus_rt_gpa": 193,
+      "flammability": "pass",
+      "curves": {
+        "yield_strength_mpa": {
+          "unit": "MPa",
+          "temps_k": [20, 77, 90, 195, 295],
+          "values": [600, 480, 450, 320, 240],
+          "source": "representative annealed 316 cryogenic tensile data"
+        }
+      },
+      "notes": "More stable austenite than 304 (less martensite under cryogenic strain); preferred where magnetic permeability matters.",
+      "references": ["NIST cryogenics"]
+    },
+    {
+      "name": "Aluminum 6061-T6",
+      "category": "metal",
+      "subcategory": "aluminum",
+      "condition": "T6",
+      "density_kg_m3": 2700,
+      "outgassing": { "tml": 0.0, "cvcm": 0.0, "wvr": 0.0, "source": "metal; non-outgassing per E595 screening practice" },
+      "yield_strength_rt_mpa": 276,
+      "ultimate_strength_rt_mpa": 310,
+      "modulus_rt_gpa": 69,
+      "flammability": "pass",
+      "curves": {
+        "yield_strength_mpa": {
+          "unit": "MPa",
+          "temps_k": [20, 77, 90, 195, 295],
+          "values": [380, 324, 315, 290, 276],
+          "source": "representative 6061-T6 cryogenic tensile data"
+        },
+        "ultimate_strength_mpa": {
+          "unit": "MPa",
+          "temps_k": [20, 77, 90, 195, 295],
+          "values": [500, 415, 400, 340, 310],
+          "source": "representative"
+        }
+      },
+      "notes": "Default structural aluminum; ductile to 4 K. Welds knock T6 properties down hard.",
+      "references": ["NIST cryogenics"]
+    },
+    {
+      "name": "Ti-6Al-4V",
+      "category": "metal",
+      "subcategory": "titanium",
+      "condition": "annealed",
+      "density_kg_m3": 4430,
+      "outgassing": { "tml": 0.0, "cvcm": 0.0, "wvr": 0.0, "source": "metal; non-outgassing per E595 screening practice" },
+      "yield_strength_rt_mpa": 880,
+      "ultimate_strength_rt_mpa": 950,
+      "modulus_rt_gpa": 114,
+      "flammability": "pass",
+      "curves": {
+        "yield_strength_mpa": {
+          "unit": "MPa",
+          "temps_k": [20, 77, 90, 195, 295],
+          "values": [1650, 1450, 1400, 1100, 880],
+          "source": "representative annealed Ti-6Al-4V cryogenic tensile data"
+        }
+      },
+      "notes": "Best strength-to-weight with low conductivity; standard for cryogenic struts and flexures. ELI grade preferred below 77 K for toughness.",
+      "references": ["NIST cryogenics"]
+    },
+    {
+      "name": "Invar 36",
+      "category": "metal",
+      "subcategory": "iron-nickel",
+      "condition": "annealed",
+      "density_kg_m3": 8050,
+      "outgassing": { "tml": 0.0, "cvcm": 0.0, "wvr": 0.0, "source": "metal; non-outgassing per E595 screening practice" },
+      "yield_strength_rt_mpa": 240,
+      "ultimate_strength_rt_mpa": 490,
+      "modulus_rt_gpa": 141,
+      "flammability": "pass",
+      "notes": "Near-zero thermal contraction; used for dimensionally stable optics benches and LNG membranes. Heavy and not strong.",
+      "references": ["NIST cryogenics"]
+    },
+    {
       "name": "Inconel 718",
       "category": "metal",
       "subcategory": "nickel superalloy",
@@ -152,18 +226,6 @@
           "temps_k": [20, 77, 90, 195, 295],
           "values": [1680, 1600, 1570, 1450, 1380],
           "source": "representative"
-        },
-        "thermal_conductivity_w_mk": {
-          "unit": "W/(m*K)",
-          "temps_k": [4, 20, 77, 90, 295],
-          "values": [0.3, 2.0, 6.3, 6.9, 11.4],
-          "source": "NIST cryogenic material properties, Inconel 718"
-        },
-        "thermal_contraction_pct": {
-          "unit": "% (shrinkage from 293 K)",
-          "temps_k": [20, 77, 90, 195, 293],
-          "values": [0.238, 0.224, 0.215, 0.130, 0.0],
-          "source": "NIST integrated expansion, Inconel 718"
         }
       },
       "notes": "Standard for cryogenic fasteners, bellows, and engine hardware; ductile to 4 K.",

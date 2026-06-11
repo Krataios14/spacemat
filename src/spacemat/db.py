@@ -6,7 +6,9 @@ import json
 from functools import lru_cache
 from importlib import resources
 
-from .schema import Material, Outgassing, PropertyCurve
+from dataclasses import replace
+
+from .schema import Material, NISTFitCurve, Outgassing, PropertyCurve
 
 
 def _parse_material(raw: dict) -> Material:
@@ -40,21 +42,43 @@ def _parse_material(raw: dict) -> Material:
     )
 
 
+def _parse_fit(name: str, raw: dict) -> NISTFitCurve:
+    letters = "abcdefghi" if raw["form"] == "log10poly" else "abcde"
+    coeffs = tuple(raw["coeffs"].get(k) or 0.0 for k in letters)
+    return NISTFitCurve(
+        name=name, unit=raw["unit"], form=raw["form"], coeffs=coeffs,
+        t_min=raw["t_min"], t_max=raw["t_max"],
+        t_low=raw.get("t_low"), below_value=raw.get("below_value"),
+        transform=raw.get("transform", ""), source=raw.get("source", ""),
+    )
+
+
 @lru_cache(maxsize=1)
 def load_all() -> tuple[Material, ...]:
-    """Load every JSON file in the bundled data directory, sorted by name."""
+    """Load every JSON data file, then overlay NIST fits on top. A NIST fit
+    replaces a hand-entered point curve of the same name."""
     mats: list[Material] = []
+    fits: dict = {}
     data_dir = resources.files("spacemat.data")
     for entry in sorted(data_dir.iterdir(), key=lambda e: e.name):
-        if not entry.name.endswith(".json"):
-            continue
-        raw = json.loads(entry.read_text(encoding="utf-8"))
-        mats.extend(_parse_material(m) for m in raw["materials"])
+        if entry.name == "nist_fits.json":
+            fits = json.loads(entry.read_text(encoding="utf-8"))["fits"]
+        elif entry.name.endswith(".json"):
+            raw = json.loads(entry.read_text(encoding="utf-8"))
+            mats.extend(_parse_material(m) for m in raw["materials"])
     names = [m.name for m in mats]
     dupes = {n for n in names if names.count(n) > 1}
     if dupes:
         raise ValueError(f"duplicate material names across data files: {sorted(dupes)}")
-    return tuple(sorted(mats, key=lambda m: m.name))
+    by_name = {m.name: m for m in mats}
+    for mat_name, mat_fits in fits.items():
+        m = by_name.get(mat_name)
+        if m is None:
+            raise ValueError(f"nist_fits.json references unknown material {mat_name!r}")
+        curves = dict(m.curves)
+        curves.update({k: _parse_fit(k, f) for k, f in mat_fits.items()})
+        by_name[mat_name] = replace(m, curves=curves)
+    return tuple(sorted(by_name.values(), key=lambda m: m.name))
 
 
 def get(name: str) -> Material:

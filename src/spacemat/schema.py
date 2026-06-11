@@ -11,6 +11,7 @@ different places:
 from __future__ import annotations
 
 import bisect
+import math
 from dataclasses import dataclass, field
 from typing import Optional
 
@@ -66,6 +67,42 @@ class PropertyCurve:
         t0, t1 = self.temps_k[i - 1], self.temps_k[i]
         v0, v1 = self.values[i - 1], self.values[i]
         return v0 + (v1 - v0) * (t_kelvin - t0) / (t1 - t0)
+
+
+@dataclass(frozen=True)
+class NISTFitCurve:
+    """A property backed by a NIST published curve-fit equation, evaluated
+    verbatim. Same .at()/range interface as PropertyCurve."""
+
+    name: str
+    unit: str
+    form: str                       # "log10poly" or "quartic"
+    coeffs: tuple[float, ...]       # a..i (log10poly) or a..e (quartic)
+    t_min: float
+    t_max: float
+    t_low: Optional[float] = None   # quartic fits hold a constant below this
+    below_value: Optional[float] = None
+    transform: str = ""             # "" or "expansion_e5_to_contraction_pct"
+    source: str = ""
+
+    def at(self, t_kelvin: float) -> Optional[float]:
+        if not (self.t_min <= t_kelvin <= self.t_max):
+            return None
+        if self.form == "log10poly":
+            x = math.log10(t_kelvin)
+            y = 10 ** sum(c * x**n for n, c in enumerate(self.coeffs))
+        elif self.form == "quartic":
+            if self.t_low is not None and t_kelvin < self.t_low:
+                y = self.below_value
+            else:
+                y = sum(c * t_kelvin**n for n, c in enumerate(self.coeffs))
+        else:
+            raise ValueError(f"unknown fit form {self.form!r}")
+        if self.transform == "expansion_e5_to_contraction_pct":
+            # NIST gives (L-L293)/L293 x 1e5, negative when cold; we report
+            # shrinkage as positive percent
+            y = -y / 1000.0
+        return y
 
 
 @dataclass(frozen=True)

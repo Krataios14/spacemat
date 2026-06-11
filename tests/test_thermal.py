@@ -5,10 +5,17 @@ from spacemat.thermal import compare_heat_leak, conductivity_integral, heat_leak
 
 
 def test_integral_exact_on_linear_segment():
-    # 304L curve: k(77)=7.9, k(90)=8.6, linear between, so the integral
-    # over 77..90 is the trapezoid 0.5*(7.9+8.6)*13
+    # 301 keeps a point curve: k(77)=7.7, k(90)=8.4, linear between, so the
+    # integral over 77..90 is the trapezoid 0.5*(7.7+8.4)*13
+    val = conductivity_integral("Stainless Steel 301", 77 * K, 90 * K)
+    assert val == pytest.approx(0.5 * (7.7 + 8.4) * 13)
+
+
+def test_integral_against_nist_fit():
+    # 304L is now the NIST fit; the 77-90 K integral should land within a
+    # few percent of the simple trapezoid of the fit endpoints
     val = conductivity_integral("304L", 77 * K, 90 * K)
-    assert val == pytest.approx(0.5 * (7.9 + 8.6) * 13)
+    assert val == pytest.approx(0.5 * (7.92 + 8.70) * 13, rel=0.03)
 
 
 def test_integral_spans_multiple_segments():

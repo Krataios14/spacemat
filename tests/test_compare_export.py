@@ -26,7 +26,7 @@ def test_to_records_with_temperature():
 def test_to_records_ranges_without_temperature():
     recs = export.to_records()
     rec_304 = next(r for r in recs if r["name"] == "Stainless Steel 304L")
-    assert rec_304["thermal_conductivity_w_mk_range_K"] == "4-295"
+    assert rec_304["thermal_conductivity_w_mk_range_K"] == "1-300"
 
 
 def test_csv_roundtrip(tmp_path):

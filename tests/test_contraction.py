@@ -8,8 +8,9 @@ def test_contraction_curves_zero_at_reference():
     from spacemat import get
     for name in ("304L", "Inconel 718", "Al-Li 2195", "PTFE"):
         c = get(name).curves["thermal_contraction_pct"]
-        assert c.at(293) == 0.0
-        assert c.at(20) > 0
+        # NIST fits don't pass exactly through zero at the reference point
+        assert abs(c.at(293)) < 0.01
+        assert c.at(20) > 0.1
 
 
 def test_ptfe_contracts_an_order_more_than_steel():
@@ -27,7 +28,7 @@ def test_mismatch_requires_data():
     with pytest.raises(ValueError, match="no thermal contraction"):
         contraction_mismatch("PEEK", "304L", 77)
     with pytest.raises(ValueError, match="outside"):
-        contraction_mismatch("PTFE", "304L", 4)
+        contraction_mismatch("PTFE", "304L", 2)  # NIST fits stop at 4 K
 
 
 def test_contraction_token_in_screen():

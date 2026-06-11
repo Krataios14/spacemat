@@ -54,7 +54,7 @@ def test_screen_outgassing():
 def test_screen_at_service_temperature():
     results = screen(TML < 1.0, CVCM < 0.1, YIELD_STRENGTH > 1000, T_service=90 * K)
     names = {r.material.name for r in results}
-    assert names == {"Stainless Steel 301", "Inconel 718"}
+    assert names == {"Stainless Steel 301", "Inconel 718", "Ti-6Al-4V"}
 
 
 def test_screen_data_gaps_visible_when_requested():
@@ -67,7 +67,7 @@ def test_screen_data_gaps_visible_when_requested():
 
 def test_screen_flammability_and_category_filters():
     metals = screen(DENSITY < 5000, category="metal")
-    assert {r.material.name for r in metals} == {"Al-Li 2195"}
+    assert {r.material.name for r in metals} == {"Al-Li 2195", "Aluminum 6061-T6", "Ti-6Al-4V"}
     flam = screen(require_flammability_pass=True)
     assert all(r.material.flammability == "pass" for r in flam)
     assert "Buna-N (nitrile)" not in {r.material.name for r in flam}

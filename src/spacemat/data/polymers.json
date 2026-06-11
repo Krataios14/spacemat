@@ -11,20 +11,6 @@
       "density_kg_m3": 2160,
       "outgassing": { "tml": 0.03, "cvcm": 0.0, "wvr": 0.0, "source": "GSFC-style representative E595 result" },
       "flammability": "pass",
-      "curves": {
-        "thermal_conductivity_w_mk": {
-          "unit": "W/(m*K)",
-          "temps_k": [20, 77, 90, 195, 295],
-          "values": [0.13, 0.20, 0.21, 0.24, 0.25],
-          "source": "NIST cryogenic material properties, PTFE"
-        },
-        "thermal_contraction_pct": {
-          "unit": "% (shrinkage from 293 K)",
-          "temps_k": [20, 77, 90, 195, 293],
-          "values": [2.06, 1.93, 1.88, 1.20, 0.0],
-          "source": "NIST integrated expansion, PTFE; an order of magnitude above metals"
-        }
-      },
       "notes": "Excellent outgassing and chemical compatibility; large thermal contraction and cold flow under load.",
       "references": ["outgassing.nasa.gov", "NIST cryogenics"]
     },
@@ -47,14 +33,6 @@
       "density_kg_m3": 1420,
       "outgassing": { "tml": 0.77, "cvcm": 0.02, "wvr": 0.6, "source": "GSFC-style representative E595 result; moisture dominates TML" },
       "flammability": "pass",
-      "curves": {
-        "thermal_conductivity_w_mk": {
-          "unit": "W/(m*K)",
-          "temps_k": [20, 77, 90, 295],
-          "values": [0.03, 0.08, 0.09, 0.16],
-          "source": "NIST cryogenic material properties, polyimide"
-        }
-      },
       "notes": "MLI and flex-circuit staple; TML is mostly recoverable water (high WVR).",
       "references": ["outgassing.nasa.gov", "NIST cryogenics"]
     },
@@ -121,20 +99,6 @@
       "density_kg_m3": 1900,
       "outgassing": { "tml": 0.5, "cvcm": 0.01, "wvr": 0.3, "source": "GSFC-style representative E595 result; varies by resin lot" },
       "flammability": "pass",
-      "curves": {
-        "thermal_conductivity_w_mk": {
-          "unit": "W/(m*K)",
-          "temps_k": [20, 77, 90, 295],
-          "values": [0.13, 0.25, 0.27, 0.6],
-          "source": "NIST cryogenic material properties, G-10 normal direction"
-        },
-        "thermal_contraction_pct": {
-          "unit": "% (shrinkage from 293 K)",
-          "temps_k": [20, 77, 90, 195, 293],
-          "values": [0.706, 0.667, 0.640, 0.400, 0.0],
-          "source": "NIST integrated expansion, G-10 normal direction; in-plane is roughly a third of this"
-        }
-      },
       "notes": "Standard cryogenic structural insulator/standoff; well-characterized to 4 K.",
       "references": ["outgassing.nasa.gov", "NIST cryogenics"]
     }

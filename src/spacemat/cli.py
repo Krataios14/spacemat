@@ -106,8 +106,13 @@ def cmd_show(args) -> int:
         print(f"\n{m.notes}")
     for key, c in sorted(m.curves.items()):
         print(f"\n{key} [{c.unit}], {c.t_min:g}-{c.t_max:g} K ({c.source})")
-        print("  T[K]: " + "  ".join(f"{t:g}" for t in c.temps_k))
-        print("  val:  " + "  ".join(f"{v:g}" for v in c.values))
+        if hasattr(c, "temps_k"):
+            temps = c.temps_k
+        else:
+            # NIST fit curve; show it sampled at the usual checkpoints
+            temps = [t for t in (4, 20, 77, 90, 195, 295) if c.t_min <= t <= c.t_max]
+        print("  T[K]: " + "  ".join(f"{t:g}" for t in temps))
+        print("  val:  " + "  ".join(f"{c.at(t):.4g}" for t in temps))
     return 0
 
 
