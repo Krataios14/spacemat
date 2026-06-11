@@ -77,3 +77,6 @@ ULTIMATE_STRENGTH = Property("ultimate strength [MPa]",
                              _curve_at_t("ultimate_strength_mpa", "ultimate_strength_rt_mpa"))
 THERMAL_CONDUCTIVITY = Property("thermal conductivity [W/(m*K)]",
                                 _curve_at_t("thermal_conductivity_w_mk"))
+CONTRACTION = Property("thermal contraction from 293 K [%]",
+                       _curve_at_t("thermal_contraction_pct"))
+ELONGATION = Property("elongation [%]", _curve_at_t("elongation_pct"))

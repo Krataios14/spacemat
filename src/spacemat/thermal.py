@@ -70,6 +70,28 @@ def heat_leak(material: Union[Material, str], area_m2: float, length_m: float,
     return (area_m2 / length_m) * conductivity_integral(material, T_cold, T_hot)
 
 
+def contraction_mismatch(material_a: Union[Material, str],
+                         material_b: Union[Material, str], T_cold) -> float:
+    """Differential thermal strain in percent between two materials cooled
+    from 293 K to T_cold. This is the number that cracks bonded joints and
+    seizes clearance fits; positive means material_a shrinks more.
+    """
+    t = as_kelvin(T_cold)
+    strains = []
+    for mat in (material_a, material_b):
+        m = _resolve(mat)
+        c = m.curves.get("thermal_contraction_pct")
+        if c is None:
+            raise ValueError(f"{m.name} has no thermal contraction curve")
+        v = c.at(t)
+        if v is None:
+            raise ValueError(
+                f"{m.name}: {t:g} K outside contraction data range "
+                f"{c.t_min:g}-{c.t_max:g} K")
+        strains.append(v)
+    return strains[0] - strains[1]
+
+
 def compare_heat_leak(names: list[str], area_m2: float, length_m: float,
                       T_cold, T_hot) -> list[tuple[str, float]]:
     """Heat leak for several candidate materials, sorted best (lowest) first.
