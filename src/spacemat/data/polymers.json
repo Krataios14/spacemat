@@ -17,6 +17,12 @@
           "temps_k": [20, 77, 90, 195, 295],
           "values": [0.13, 0.20, 0.21, 0.24, 0.25],
           "source": "NIST cryogenic material properties, PTFE"
+        },
+        "thermal_contraction_pct": {
+          "unit": "% (shrinkage from 293 K)",
+          "temps_k": [20, 77, 90, 195, 293],
+          "values": [2.06, 1.93, 1.88, 1.20, 0.0],
+          "source": "NIST integrated expansion, PTFE; an order of magnitude above metals"
         }
       },
       "notes": "Excellent outgassing and chemical compatibility; large thermal contraction and cold flow under load.",
@@ -121,6 +127,12 @@
           "temps_k": [20, 77, 90, 295],
           "values": [0.13, 0.25, 0.27, 0.6],
           "source": "NIST cryogenic material properties, G-10 normal direction"
+        },
+        "thermal_contraction_pct": {
+          "unit": "% (shrinkage from 293 K)",
+          "temps_k": [20, 77, 90, 195, 293],
+          "values": [0.706, 0.667, 0.640, 0.400, 0.0],
+          "source": "NIST integrated expansion, G-10 normal direction; in-plane is roughly a third of this"
         }
       },
       "notes": "Standard cryogenic structural insulator/standoff; well-characterized to 4 K.",
