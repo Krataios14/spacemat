@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
+import re
 from typing import Optional, Sequence
 
+from . import outgassing
 from .db import get
 from .schema import Material
 from .units import as_kelvin
@@ -36,7 +38,22 @@ _FLAM_TEXT = {
 }
 
 
-def compliance_report(names: Sequence[str], T_service=None, project: str = "") -> str:
+def _nasa_query(m: Material) -> str:
+    """Best-effort search string for the NASA database: strip parentheticals
+    and generic prefixes from the curated name."""
+    name = re.sub(r"\s*\(.*?\)", "", m.name)
+    name = re.sub(r"^(Stainless Steel|Scotch-Weld|Hysol)\s+", "", name, flags=re.I)
+    return name.strip()
+
+
+def _nasa_crosscheck(m: Material) -> Optional[dict]:
+    if m.category == "metal":
+        return None  # metals are non-outgassing; the database covers organics
+    return outgassing.summarize(_nasa_query(m))
+
+
+def compliance_report(names: Sequence[str], T_service=None, project: str = "",
+                      crosscheck: bool = True) -> str:
     """Build a Markdown compliance report for the named materials.
 
     Covers ASTM E595 outgassing (TML <= 1.0%, CVCM <= 0.10%), flammability
@@ -71,6 +88,18 @@ def compliance_report(names: Sequence[str], T_service=None, project: str = "") -
         lines.append(f"- Outgassing: **{e_status}**: {e_detail}")
         if m.outgassing and m.outgassing.source:
             lines.append(f"  - source: {m.outgassing.source}")
+        if crosscheck:
+            s = _nasa_crosscheck(m)
+            if s:
+                lines.append(
+                    f"  - NASA database: {s['n_tests']} test(s) matching "
+                    f"{_nasa_query(m)!r}: {s['n_pass']} pass, {s['n_fail']} fail; "
+                    f"TML {s['tml_min']:.2f} to {s['tml_max']:.2f}%, "
+                    f"CVCM {s['cvcm_min']:.2f} to {s['cvcm_max']:.2f}%")
+            elif m.category != "metal":
+                lines.append(
+                    f"  - NASA database: no entries matching {_nasa_query(m)!r}; "
+                    "search outgassing.nasa.gov manually")
         lines.append(f"- Flammability: **{f_status}**: {f_detail}")
         if t_k is not None:
             props = []
