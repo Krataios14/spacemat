@@ -42,9 +42,19 @@ def _parse_material(raw: dict) -> Material:
 
 @lru_cache(maxsize=1)
 def load_all() -> tuple[Material, ...]:
-    text = resources.files("spacemat.data").joinpath("materials.json").read_text(encoding="utf-8")
-    raw = json.loads(text)
-    return tuple(_parse_material(m) for m in raw["materials"])
+    """Load every JSON file in the bundled data directory, sorted by name."""
+    mats: list[Material] = []
+    data_dir = resources.files("spacemat.data")
+    for entry in sorted(data_dir.iterdir(), key=lambda e: e.name):
+        if not entry.name.endswith(".json"):
+            continue
+        raw = json.loads(entry.read_text(encoding="utf-8"))
+        mats.extend(_parse_material(m) for m in raw["materials"])
+    names = [m.name for m in mats]
+    dupes = {n for n in names if names.count(n) > 1}
+    if dupes:
+        raise ValueError(f"duplicate material names across data files: {sorted(dupes)}")
+    return tuple(sorted(mats, key=lambda m: m.name))
 
 
 def get(name: str) -> Material:

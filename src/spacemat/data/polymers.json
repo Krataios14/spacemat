@@ -1,0 +1,130 @@
+{
+  "_meta": {
+    "description": "Polymers and composites. Outgassing values are representative entries in the style of the NASA GSFC outgassing database (outgassing.nasa.gov); TML/CVCM depend on lot, cure, and bakeout, so always verify against the database entry for the exact product/cure before flight use."
+  },
+  "materials": [
+    {
+      "name": "PTFE (Teflon)",
+      "category": "polymer",
+      "subcategory": "fluoropolymer",
+      "condition": "virgin, molded",
+      "density_kg_m3": 2160,
+      "outgassing": { "tml": 0.03, "cvcm": 0.0, "wvr": 0.0, "source": "GSFC-style representative E595 result" },
+      "flammability": "pass",
+      "curves": {
+        "thermal_conductivity_w_mk": {
+          "unit": "W/(m*K)",
+          "temps_k": [20, 77, 90, 195, 295],
+          "values": [0.13, 0.20, 0.21, 0.24, 0.25],
+          "source": "NIST cryogenic material properties, PTFE"
+        }
+      },
+      "notes": "Excellent outgassing and chemical compatibility; large thermal contraction and cold flow under load.",
+      "references": ["outgassing.nasa.gov", "NIST cryogenics"]
+    },
+    {
+      "name": "PEEK",
+      "category": "polymer",
+      "subcategory": "thermoplastic",
+      "condition": "unfilled",
+      "density_kg_m3": 1320,
+      "outgassing": { "tml": 0.31, "cvcm": 0.0, "wvr": 0.06, "source": "GSFC-style representative E595 result" },
+      "flammability": "pass",
+      "notes": "High-performance structural thermoplastic; usable at cryogenic temperature though it embrittles.",
+      "references": ["outgassing.nasa.gov"]
+    },
+    {
+      "name": "Kapton H film",
+      "category": "polymer",
+      "subcategory": "polyimide film",
+      "condition": "film",
+      "density_kg_m3": 1420,
+      "outgassing": { "tml": 0.77, "cvcm": 0.02, "wvr": 0.6, "source": "GSFC-style representative E595 result; moisture dominates TML" },
+      "flammability": "pass",
+      "curves": {
+        "thermal_conductivity_w_mk": {
+          "unit": "W/(m*K)",
+          "temps_k": [20, 77, 90, 295],
+          "values": [0.03, 0.08, 0.09, 0.16],
+          "source": "NIST cryogenic material properties, polyimide"
+        }
+      },
+      "notes": "MLI and flex-circuit staple; TML is mostly recoverable water (high WVR).",
+      "references": ["outgassing.nasa.gov", "NIST cryogenics"]
+    },
+    {
+      "name": "Mylar A film",
+      "category": "polymer",
+      "subcategory": "polyester film",
+      "condition": "film",
+      "density_kg_m3": 1390,
+      "outgassing": { "tml": 0.26, "cvcm": 0.02, "wvr": 0.2, "source": "GSFC-style representative E595 result" },
+      "flammability": "fail",
+      "notes": "MLI layer film; flammable in oxygen-enriched environments, embrittles below ~200 K less than most polyesters.",
+      "references": ["outgassing.nasa.gov"]
+    },
+    {
+      "name": "Vespel SP-1",
+      "category": "polymer",
+      "subcategory": "polyimide, machinable",
+      "condition": "as-machined",
+      "density_kg_m3": 1430,
+      "outgassing": { "tml": 1.09, "cvcm": 0.0, "wvr": 0.9, "source": "GSFC-style representative E595 result; fails TML unless baked out" },
+      "flammability": "pass",
+      "notes": "Marginal on TML (water-dominated); commonly accepted after vacuum bakeout with WVR credit.",
+      "references": ["outgassing.nasa.gov"]
+    },
+    {
+      "name": "Ultem 1000",
+      "category": "polymer",
+      "subcategory": "polyetherimide",
+      "condition": "unfilled",
+      "density_kg_m3": 1270,
+      "outgassing": { "tml": 0.4, "cvcm": 0.0, "wvr": 0.1, "source": "GSFC-style representative E595 result" },
+      "flammability": "pass",
+      "notes": "Good outgassing and inherent flame resistance; common for electrical isolators.",
+      "references": ["outgassing.nasa.gov"]
+    },
+    {
+      "name": "Nylon 6/6",
+      "category": "polymer",
+      "subcategory": "polyamide",
+      "condition": "unfilled",
+      "density_kg_m3": 1140,
+      "outgassing": { "tml": 1.5, "cvcm": 0.03, "wvr": 1.1, "source": "GSFC-style representative E595 result; fails TML" },
+      "flammability": "untested",
+      "notes": "Fails E595 TML due to absorbed water; generally avoided in vacuum hardware.",
+      "references": ["outgassing.nasa.gov"]
+    },
+    {
+      "name": "Delrin (acetal)",
+      "category": "polymer",
+      "subcategory": "polyoxymethylene",
+      "condition": "unfilled",
+      "density_kg_m3": 1410,
+      "outgassing": { "tml": 0.4, "cvcm": 0.0, "wvr": 0.2, "source": "GSFC-style representative E595 result" },
+      "flammability": "fail",
+      "notes": "Passes outgassing but burns readily; flammability usually disqualifies it for crewed-vehicle use.",
+      "references": ["outgassing.nasa.gov"]
+    },
+    {
+      "name": "G-10/FR-4 glass epoxy",
+      "category": "composite",
+      "subcategory": "glass fiber laminate",
+      "condition": "laminate",
+      "density_kg_m3": 1900,
+      "outgassing": { "tml": 0.5, "cvcm": 0.01, "wvr": 0.3, "source": "GSFC-style representative E595 result; varies by resin lot" },
+      "flammability": "pass",
+      "curves": {
+        "thermal_conductivity_w_mk": {
+          "unit": "W/(m*K)",
+          "temps_k": [20, 77, 90, 295],
+          "values": [0.13, 0.25, 0.27, 0.6],
+          "source": "NIST cryogenic material properties, G-10 normal direction"
+        }
+      },
+      "notes": "Standard cryogenic structural insulator/standoff; well-characterized to 4 K.",
+      "references": ["outgassing.nasa.gov", "NIST cryogenics"]
+    }
+  ]
+}

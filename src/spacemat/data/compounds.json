@@ -1,0 +1,117 @@
+{
+  "_meta": {
+    "description": "Adhesives, coatings, lubricants, and elastomers. Outgassing values are representative entries in the style of the NASA GSFC outgassing database (outgassing.nasa.gov); cure schedule and lot matter, verify the exact product before flight use."
+  },
+  "materials": [
+    {
+      "name": "RTV 566",
+      "category": "adhesive",
+      "subcategory": "silicone",
+      "condition": "cured per spec",
+      "density_kg_m3": 1480,
+      "outgassing": { "tml": 0.14, "cvcm": 0.02, "wvr": 0.05, "source": "GSFC-style representative E595 result, low-volatility space-grade silicone" },
+      "flammability": "pass",
+      "notes": "Low-outgassing space-grade RTV; silicone contamination risk near optics regardless of CVCM.",
+      "references": ["outgassing.nasa.gov"]
+    },
+    {
+      "name": "RTV 560",
+      "category": "adhesive",
+      "subcategory": "silicone",
+      "condition": "cured per spec",
+      "density_kg_m3": 1420,
+      "outgassing": { "tml": 0.45, "cvcm": 0.08, "wvr": 0.1, "source": "GSFC-style representative E595 result; CVCM near the 0.10 limit" },
+      "flammability": "pass",
+      "notes": "Usable but CVCM is borderline; prefer 566 near contamination-sensitive surfaces.",
+      "references": ["outgassing.nasa.gov"]
+    },
+    {
+      "name": "Scotch-Weld EC-2216 B/A",
+      "category": "adhesive",
+      "subcategory": "epoxy, flexible",
+      "condition": "cured 7d RT",
+      "density_kg_m3": 1300,
+      "outgassing": { "tml": 0.77, "cvcm": 0.04, "wvr": 0.3, "source": "GSFC-style representative E595 result" },
+      "flammability": "untested",
+      "notes": "Classic cryo-tolerant structural adhesive; retains toughness at 77 K better than rigid epoxies.",
+      "references": ["outgassing.nasa.gov"]
+    },
+    {
+      "name": "Hysol EA 9394",
+      "category": "adhesive",
+      "subcategory": "epoxy, paste",
+      "condition": "cured 5d RT",
+      "density_kg_m3": 1360,
+      "outgassing": { "tml": 0.66, "cvcm": 0.02, "wvr": 0.2, "source": "GSFC-style representative E595 result" },
+      "flammability": "untested",
+      "notes": "High-strength paste adhesive used in launch vehicle bonding.",
+      "references": ["outgassing.nasa.gov"]
+    },
+    {
+      "name": "Stycast 2850FT",
+      "category": "adhesive",
+      "subcategory": "epoxy, filled potting",
+      "condition": "cured with catalyst 9",
+      "density_kg_m3": 2300,
+      "outgassing": { "tml": 0.5, "cvcm": 0.01, "wvr": 0.2, "source": "GSFC-style representative E595 result" },
+      "flammability": "untested",
+      "notes": "Cryogenic potting standard; thermal contraction matched to metals better than unfilled epoxies.",
+      "references": ["outgassing.nasa.gov"]
+    },
+    {
+      "name": "Braycote 601EF",
+      "category": "lubricant",
+      "subcategory": "PFPE grease",
+      "condition": "as supplied",
+      "density_kg_m3": 1900,
+      "outgassing": { "tml": 0.04, "cvcm": 0.01, "wvr": 0.0, "source": "GSFC-style representative E595 result" },
+      "flammability": "pass",
+      "notes": "Default vacuum grease for spaceflight mechanisms.",
+      "references": ["outgassing.nasa.gov"]
+    },
+    {
+      "name": "Apiezon N",
+      "category": "lubricant",
+      "subcategory": "hydrocarbon grease",
+      "condition": "as supplied",
+      "density_kg_m3": 910,
+      "outgassing": { "tml": 2.5, "cvcm": 1.2, "wvr": 0.0, "source": "GSFC-style representative E595 result; fails both limits" },
+      "flammability": "untested",
+      "notes": "Excellent cryogenic thermal-contact grease for lab use, but fails E595 badly; keep out of flight vacuum hardware.",
+      "references": ["outgassing.nasa.gov"]
+    },
+    {
+      "name": "Aeroglaze Z306",
+      "category": "coating",
+      "subcategory": "black polyurethane paint",
+      "condition": "cured per spec",
+      "density_kg_m3": 1400,
+      "outgassing": { "tml": 1.0, "cvcm": 0.02, "wvr": 0.5, "source": "GSFC-style representative E595 result; TML at the limit, bakeout-sensitive" },
+      "flammability": "untested",
+      "notes": "Standard black thermal-control/stray-light coating; requires bakeout, TML right at the 1.0 limit.",
+      "references": ["outgassing.nasa.gov"]
+    },
+    {
+      "name": "Viton A",
+      "category": "elastomer",
+      "subcategory": "fluoroelastomer",
+      "condition": "molded, post-cured",
+      "density_kg_m3": 1800,
+      "outgassing": { "tml": 0.3, "cvcm": 0.05, "wvr": 0.1, "source": "GSFC-style representative E595 result; compound-dependent" },
+      "flammability": "pass",
+      "notes": "Common seal material; glass transition ~ 250 K, NOT usable as a cryogenic seal.",
+      "references": ["outgassing.nasa.gov"]
+    },
+    {
+      "name": "Buna-N (nitrile)",
+      "category": "elastomer",
+      "subcategory": "nitrile rubber",
+      "condition": "molded",
+      "density_kg_m3": 1000,
+      "outgassing": { "tml": 2.0, "cvcm": 0.6, "wvr": 0.3, "source": "GSFC-style representative E595 result; fails both limits" },
+      "flammability": "fail",
+      "notes": "Fails E595 and flammability; ground-support use only.",
+      "references": ["outgassing.nasa.gov"]
+    }
+  ]
+}

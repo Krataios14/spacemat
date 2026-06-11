@@ -1,0 +1,149 @@
+{
+  "_meta": {
+    "description": "Metallic alloys. Cryogenic curves are representative point data from public literature (NIST cryogenic material properties program, NASA technical reports); they are NOT design allowables. Room-temperature strengths are typical handbook values, not MMPDS A/B-basis allowables."
+  },
+  "materials": [
+    {
+      "name": "Stainless Steel 304L",
+      "category": "metal",
+      "subcategory": "austenitic stainless",
+      "condition": "annealed",
+      "density_kg_m3": 7900,
+      "outgassing": { "tml": 0.0, "cvcm": 0.0, "wvr": 0.0, "source": "metal; non-outgassing per E595 screening practice" },
+      "yield_strength_rt_mpa": 210,
+      "ultimate_strength_rt_mpa": 560,
+      "modulus_rt_gpa": 193,
+      "flammability": "pass",
+      "curves": {
+        "yield_strength_mpa": {
+          "unit": "MPa",
+          "temps_k": [20, 77, 90, 195, 295],
+          "values": [470, 430, 410, 300, 210],
+          "source": "representative annealed 304L cryogenic tensile data, NIST/NASA literature"
+        },
+        "ultimate_strength_mpa": {
+          "unit": "MPa",
+          "temps_k": [20, 77, 90, 195, 295],
+          "values": [1700, 1520, 1450, 900, 560],
+          "source": "austenitic strain-hardening at cryogenic temperature; representative"
+        },
+        "thermal_conductivity_w_mk": {
+          "unit": "W/(m*K)",
+          "temps_k": [4, 20, 50, 77, 90, 150, 200, 295],
+          "values": [0.27, 2.0, 5.5, 7.9, 8.6, 11.0, 12.5, 14.7],
+          "source": "NIST cryogenic material properties, 304 stainless"
+        },
+        "elongation_pct": {
+          "unit": "%",
+          "temps_k": [20, 77, 295],
+          "values": [35, 40, 55],
+          "source": "representative"
+        }
+      },
+      "notes": "Workhorse cryo-tank alloy; retains toughness to 4 K. Annealed values; cold work raises strength substantially.",
+      "references": ["NIST cryogenics", "NASA TM cryogenic tensile data"]
+    },
+    {
+      "name": "Stainless Steel 301",
+      "category": "metal",
+      "subcategory": "austenitic stainless",
+      "condition": "half-hard cold rolled",
+      "density_kg_m3": 7880,
+      "outgassing": { "tml": 0.0, "cvcm": 0.0, "wvr": 0.0, "source": "metal; non-outgassing per E595 screening practice" },
+      "yield_strength_rt_mpa": 760,
+      "ultimate_strength_rt_mpa": 1030,
+      "modulus_rt_gpa": 193,
+      "flammability": "pass",
+      "curves": {
+        "yield_strength_mpa": {
+          "unit": "MPa",
+          "temps_k": [20, 77, 90, 195, 295],
+          "values": [1310, 1170, 1120, 900, 760],
+          "source": "representative cold-rolled 301 cryogenic tensile data"
+        },
+        "ultimate_strength_mpa": {
+          "unit": "MPa",
+          "temps_k": [20, 77, 90, 195, 295],
+          "values": [2050, 1860, 1790, 1380, 1030],
+          "source": "representative"
+        },
+        "thermal_conductivity_w_mk": {
+          "unit": "W/(m*K)",
+          "temps_k": [4, 20, 77, 90, 295],
+          "values": [0.25, 1.9, 7.7, 8.4, 14.5],
+          "source": "approximated from NIST 304 family data"
+        }
+      },
+      "notes": "Cold-rolled tempers give very high cryogenic strength-to-weight for stainless; martensitic transformation under strain increases strength at cryo.",
+      "references": ["NIST cryogenics"]
+    },
+    {
+      "name": "Al-Li 2195",
+      "category": "metal",
+      "subcategory": "aluminum-lithium",
+      "condition": "T8",
+      "density_kg_m3": 2700,
+      "outgassing": { "tml": 0.0, "cvcm": 0.0, "wvr": 0.0, "source": "metal; non-outgassing per E595 screening practice" },
+      "yield_strength_rt_mpa": 530,
+      "ultimate_strength_rt_mpa": 590,
+      "modulus_rt_gpa": 78,
+      "flammability": "pass",
+      "curves": {
+        "yield_strength_mpa": {
+          "unit": "MPa",
+          "temps_k": [20, 77, 90, 195, 295],
+          "values": [640, 600, 590, 555, 530],
+          "source": "representative 2195-T8 cryogenic tensile data (Space Shuttle ET / SLS literature)"
+        },
+        "ultimate_strength_mpa": {
+          "unit": "MPa",
+          "temps_k": [20, 77, 90, 195, 295],
+          "values": [750, 700, 685, 630, 590],
+          "source": "representative"
+        },
+        "thermal_conductivity_w_mk": {
+          "unit": "W/(m*K)",
+          "temps_k": [20, 77, 90, 195, 295],
+          "values": [25, 50, 56, 80, 90],
+          "source": "representative aluminum alloy cryogenic conductivity"
+        }
+      },
+      "notes": "Strength increases monotonically down to 20 K; used on Super Lightweight Tank. Weld allowables are substantially lower than parent metal.",
+      "references": ["NASA SLWT/SLS technical literature"]
+    },
+    {
+      "name": "Inconel 718",
+      "category": "metal",
+      "subcategory": "nickel superalloy",
+      "condition": "solution treated and aged",
+      "density_kg_m3": 8190,
+      "outgassing": { "tml": 0.0, "cvcm": 0.0, "wvr": 0.0, "source": "metal; non-outgassing per E595 screening practice" },
+      "yield_strength_rt_mpa": 1030,
+      "ultimate_strength_rt_mpa": 1380,
+      "modulus_rt_gpa": 200,
+      "flammability": "pass",
+      "curves": {
+        "yield_strength_mpa": {
+          "unit": "MPa",
+          "temps_k": [20, 77, 90, 195, 295],
+          "values": [1230, 1180, 1170, 1090, 1030],
+          "source": "representative STA 718 cryogenic tensile data"
+        },
+        "ultimate_strength_mpa": {
+          "unit": "MPa",
+          "temps_k": [20, 77, 90, 195, 295],
+          "values": [1680, 1600, 1570, 1450, 1380],
+          "source": "representative"
+        },
+        "thermal_conductivity_w_mk": {
+          "unit": "W/(m*K)",
+          "temps_k": [4, 20, 77, 90, 295],
+          "values": [0.3, 2.0, 6.3, 6.9, 11.4],
+          "source": "NIST cryogenic material properties, Inconel 718"
+        }
+      },
+      "notes": "Standard for cryogenic fasteners, bellows, and engine hardware; ductile to 4 K.",
+      "references": ["NIST cryogenics"]
+    }
+  ]
+}
