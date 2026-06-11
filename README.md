@@ -18,20 +18,16 @@ TML  min 0.10  median 1.10  max 2.85
 CVCM min 0.00  median 0.03  max 1.50
 ```
 
-I wrote this after one too many sessions of clicking through the outgassing
-site and copying numbers into a spreadsheet. It also turns out the per-test
-history is more useful than any single number: EC-2216 is usually quoted as
-passing E595, but across 64 tests it failed 46 times depending on lot and
-cure schedule. That kind of spread is hard to see in the web interface and
-easy to see here.
+Keeping the per-test history matters: EC-2216 is usually quoted as passing
+E595, but across 64 tests it failed 46 times depending on lot and cure
+schedule. Single quoted values hide this spread.
 
 ## Outgassing database
 
 Each entry has material, manufacturer, TML, CVCM, WVR, application, cure
-schedule, data reference, and year. NASA data is a US Government work, so
-bundling it is not a licensing problem. `python
-scripts/fetch_nasa_outgassing.py` rebuilds the snapshot from the live site
-if you want newer entries.
+schedule, data reference, and year. NASA data is a US Government work and
+may be redistributed. `python scripts/fetch_nasa_outgassing.py` rebuilds
+the snapshot from the live site.
 
 ```python
 from spacemat import outgassing
@@ -50,9 +46,8 @@ spacemat screen --tml 1.0 --cvcm 0.1 --application adhesive --csv passing.csv
 spacemat info
 ```
 
-Note that numeric screens drop entries with missing values instead of
-letting them through, so a screen result means "tested and passed", not
-"no data found".
+Numeric screens drop entries with missing values, so a screen result means
+tested and passed, not no data found.
 
 ## Cryogenic property curves
 
@@ -63,15 +58,14 @@ cryogenic materials, using NIST's own coefficients
 covered this way: 304L, 316, 6061-T6, Inconel 718, Ti-6Al-4V, Invar 36,
 PTFE, polyimide, and G-10, most over 4 to 300 K.
 
-NIST doesn't publish strength fits, so the yield and ultimate curves are
-typical values collected from the open literature, with a source string on
-each entry. Treat them accordingly; they are fine for trade studies but
-they are not design allowables. Same caveat for 301 cold rolled and Al-Li
-2195 generally, which NIST doesn't cover.
+NIST does not publish strength fits, so the yield and ultimate curves are
+typical values from the open literature, with a source string on each
+entry. They are suitable for trade studies, not design allowables. The same
+applies to 301 cold rolled and Al-Li 2195 in general, which NIST does not
+cover.
 
-Queries outside a curve's measured range return `None` (the thermal tools
-raise instead), since quietly extrapolating cryogenic data tends to end
-badly.
+Queries outside a curve's measured range return `None`; the thermal tools
+raise. Cryogenic data is never extrapolated.
 
 ```python
 from spacemat import screen, TML, CVCM, YIELD_STRENGTH, CONTRACTION, K
@@ -82,9 +76,9 @@ screen(CONTRACTION < 0.3, T_service=77*K)
 
 ## Thermal tools
 
-Heat leak through a support is driven by the integral of k dT across the
-temperature span, so that's what gets computed (exactly for point curves,
-numerically for the NIST fits):
+Heat leak through a support depends on the integral of k dT across the
+temperature span. The integral is computed exactly for point curves and
+numerically for the NIST fits:
 
 ```python
 from spacemat import K
@@ -94,7 +88,7 @@ heat_leak("G-10", area_m2=1.1e-4, length_m=0.3, T_cold=90*K, T_hot=295*K)
 contraction_mismatch("PTFE", "304L", 77*K)   # differential strain, percent
 ```
 
-There is a worked strut-sizing example in `examples/strut_heat_leak.py`.
+`examples/strut_heat_leak.py` contains a worked strut-sizing example.
 
 ## Compliance reports
 
@@ -104,21 +98,21 @@ spacemat report 304L "RTV 566" "Vespel SP-1" --temp 90 -o compliance.md
 
 Generates a Markdown report with E595 pass/fail, flammability flags, and
 properties at the service temperature. Non-metals are also checked against
-the bundled NASA database, with the number of upstream tests and their
-TML/CVCM spread included, which is a decent sanity check on any single
-quoted value. Materials that only exceed the TML limit because of absorbed
-water (TML minus WVR under the limit) get marked CONDITIONAL since they are
-normally accepted after bakeout.
+the bundled NASA database, reporting the number of upstream tests and their
+TML/CVCM spread. Materials that exceed the TML limit only because of
+absorbed water (TML minus WVR under the limit) are marked CONDITIONAL,
+since these are normally accepted after bakeout.
 
-For a whole bill of materials at once, see `examples/vet_bom.py`.
+`examples/vet_bom.py` runs the same check over a bill of materials.
 
-## Other bits
+## Other utilities
 
 * `compare(["304L", "Al-Li 2195"], T_service=90*K)` prints a trade table
 * `ashby_plot(DENSITY, YIELD_STRENGTH, T_service=90*K)` scatter plots,
-  needs `pip install spacemat[plot]`
-* `spacemat.export` flattens everything to CSV or dicts for pandas
-* the test suite enforces that every data value carries a source string
+  requires `pip install spacemat[plot]`
+* `spacemat.export` flattens materials and database entries to CSV or
+  dict records for pandas
+* The test suite enforces that every data value carries a source string
 
 ## Development
 
@@ -127,4 +121,4 @@ pip install -e .[dev]
 pytest
 ```
 
-MIT licensed. If you contribute data, include the source.
+MIT licensed. Data contributions must include a source.
