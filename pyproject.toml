@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "spacemat"
-version = "0.1.0"
+version = "0.2.0"
 description = "Programmatic access and screening engine for spaceflight materials data: NASA outgassing (ASTM E595), cryogenic property curves, and design allowables."
 readme = "README.md"
 requires-python = ">=3.10"
