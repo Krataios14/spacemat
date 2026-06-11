@@ -1,5 +1,8 @@
 # spacemat
 
+[![PyPI](https://img.shields.io/pypi/v/spacemat)](https://pypi.org/project/spacemat/)
+[![tests](https://github.com/Krataios14/spacemat/actions/workflows/test.yml/badge.svg)](https://github.com/Krataios14/spacemat/actions/workflows/test.yml)
+
 Python tools for spaceflight materials selection.
 
 The package bundles a snapshot of the NASA GSFC outgassing database (all
@@ -9,7 +12,7 @@ curves for the alloys and insulators commonly used in cryo tank and
 instrument work.
 
 ```
-pip install -e .
+pip install spacemat
 spacemat summary "scotchweld 2216"
 ```
 ```
@@ -114,7 +117,9 @@ since these are normally accepted after bakeout.
   dict records for pandas
 * The test suite enforces that every data value carries a source string
 
-## Development
+## Contributing
+
+For a development install:
 
 ```
 pip install -e .[dev]
