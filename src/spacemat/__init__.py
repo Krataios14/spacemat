@@ -10,7 +10,7 @@ from .schema import Material, Outgassing, PropertyCurve
 from .screen import ScreenResult, screen
 from .units import K, Quantity, degC, degF
 
-__version__ = "0.2.0"
+__version__ = "0.3.0"
 
 __all__ = [
     "screen", "ScreenResult", "get", "load_all", "compliance_report", "outgassing",

@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.3.0
+
+* Thermophysical curves (conductivity, specific heat, contraction,
+  modulus) now evaluate NIST's published cryogenic curve-fit equations
+  verbatim, parsed straight off the NIST pages by
+  `scripts/fetch_nist_fits.py`. Spot-check tests pin fit output to
+  published values.
+* New alloys riding on NIST coverage: 316 stainless, 6061-T6, Ti-6Al-4V,
+  and Invar 36.
+* Conductivity integrals handle fit-backed curves (Simpson) alongside the
+  exact piecewise-linear case.
+* Shorter, plainer comments throughout.
+
 ## 0.2.0
 
 * Bundled the complete NASA GSFC outgassing database: 13,582 ASTM E595
